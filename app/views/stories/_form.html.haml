@@ -1,0 +1,6 @@
+.story_form
+  = form_for :story, story, :url=>story_url
+    = f.text_field :name
+    = f.text_area :description
+    
+    = submit_tag "save"

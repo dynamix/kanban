@@ -1,0 +1,36 @@
+!!! Strict 
+%html
+  %head 
+    %title BanKan:: kanban can ban scrum!
+    = stylesheet_link_tag 'compiled/main.css', :media => 'screen, projection'
+    =javascript_include_tag 'jquery-1.3.1.js'
+    =javascript_include_tag 'jquery-ui-1.7.2.custom.js'
+    =javascript_include_tag 'application.js'
+
+    #topnav_container
+      #topnav
+
+        %ul
+          %li
+            %h1 BanKan
+          %li=link_to "My projects"
+          %li=link_to "My settings"
+          %li=link_to "Logout"
+          
+    
+    #sub_header_container
+      #sub_header
+        #heading
+          %h1 Project: Madvertise
+        #sub_nav
+          =link_to "overview"
+          =link_to "activity feed"
+          
+          =link_to "board"
+          
+          
+            
+      
+    #content
+      = @content_for_layout
+

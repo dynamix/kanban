@@ -1,0 +1,20 @@
+%h1 KanBan-Board
+.nav= link_to "New Story"
+
+- @states_with_stories.each_with_index do |state,i|
+  - klass = (state[:name].to_s + " column draggable")
+  - klass +=" last" if i ==(@states_with_stories.length-1)
+  %div{:class=>klass}
+    %h2
+      = "#{state[:name]} "
+      ="(#{state[:wip_limit]})" if state[:wip_limit] and state[:wip_limit] >0
+
+    %ul.column=render :partial=>'story',:collection=>state[:stories]
+
+
+- javascript_tag do
+  $(function(){
+  $('ul.column').sortable({connectWith: 'ul.column', dropOnEmpty: true, tolerance: 'pointer'});
+  });
+
+

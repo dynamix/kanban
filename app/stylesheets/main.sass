@@ -1,0 +1,129 @@
+@import blueprint.sass
+@import blueprint/modules/scaffolding.sass
+
+/ @import compass/reset.
+@import compass/utilities.sass
+@import blueprint/screen.sass
+
+/ +blueprint-scaffolding
+
+body
+  / +blueprint-typography
+  margin: 0px
+  color: #444444
+  font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif
+  font-size: 11px
+  font-size-adjust: none
+  font-style: normal
+  font-variant: normal
+  font-weight: normal
+  letter-spacing: -0.04em
+  line-height: normal
+
+  h1
+    color: #88201B
+    font-size: 20px
+    padding-top: 10px
+    padding-bottom: 10px
+    
+  h2
+    color: #005E8F
+    font-size: 14px
+    line-height: 1.5
+    font-weight: bold
+
+  li
+    list-style: none
+  ul
+    +global-reset
+    padding: 0px
+
+  p
+    font-family: Helvetica,Arial,sans-serif
+    color: #777
+  a
+    font-size: 12px
+    +hover-link
+    +link-colors(#005E8F,red)    
+
+
+  #topnav_container
+    background: #1D2029
+    
+    / url(http://) repeat-x scroll 0 0
+    height: 50px
+    overflow: hidden
+    right: 0
+    top: 0
+    width: 100%
+    #topnav
+      +container
+      h1
+        padding: 0px
+        line-height: 1.0
+        margin: 0px
+        font-size: 18px
+        color: #005E8F
+        padding-right: 200px
+        
+      ul
+        +horizontal-list
+        padding: 16px
+        padding-left: 0px
+        li
+          padding-right: 20px
+        
+      a
+        font-size: 14px
+        +hover-link
+        +link-colors(white, red)
+        
+  / #main_panel_container
+  /   +container
+  /   border: 1px solid #f0f0f0
+
+  #sub_header_container
+    background: #F0F0F0 none repeat scroll 0 0
+    width: 100%
+    #sub_header
+      +container
+      / padding: 15px
+      #heading
+        +column(10)
+      #sub_nav
+        +column(14,last)
+        padding-top: 23px
+        text-align: right
+        a
+          +hover-link
+          +link-colors(#777777,#88201B)
+          font-size: 14px
+          padding-left: 15px
+          
+          
+
+  #content
+    +container
+    padding: 15px
+    border: 1px solid #cecece
+
+  .column
+    +column(4)
+    / padding: 5px
+    / border-left: 1px #ccc solid
+    h2
+      border-bottom: 1px #ccc solid
+    ul.column
+      padding-top: 10px
+      border-bottom: 1px solid #666
+      border-top: 1px solid #666
+  
+    li.story
+      border: 1px solid #ccc
+      margin-bottom: 5px
+      padding: 5px
+      
+  .column.live
+    +last
+    
+    
