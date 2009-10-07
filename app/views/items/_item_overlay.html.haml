@@ -1,0 +1,13 @@
+#item-overlay.hidden
+  - form_for @item, :url => items_path(:project_id => @project.id, :lane_id => @backlog.id) do |f|
+    %p
+      %label Title
+      %br
+      = f.text_field :title
+      
+    %p
+      %label Text
+      %br
+      = f.text_area :text
+    
+    =submit_tag 'Save', :id => 'item-form-submit'

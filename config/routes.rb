@@ -4,7 +4,15 @@ ActionController::Routing::Routes.draw do |map|
   #map.root :board
 
   map.resource :user_sessions
-  map.resources :dashboards
+  map.resources :projects do |project|
+    project.resource :dashboard, :name_prefix => nil
+    project.resource :backlog, :name_prefix => nil
+    project.resources :lanes, :name_prefix => nil do |lanes|
+      lanes.resources :items, :name_prefix => nil
+    end
+  end
+  
+
   map.root :controller => "user_sessions", :action => "new"
 
   # The priority is based upon order of creation: first created -> highest priority.

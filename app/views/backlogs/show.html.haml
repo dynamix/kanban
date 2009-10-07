@@ -1,0 +1,21 @@
+%h1 Backlog
+.nav= link_to "New Item", '#', :id => 'item-link'
+
+%div.column.draggable
+  %h2
+    = @backlog.title
+
+  %ul.column#backlog=render @backlog.items
+  
+%div.column.draggable
+  %h2
+    = @selected_lane.title
+
+  %ul.column=render @selected_lane.items
+
+= render 'items/item_overlay'
+
+- javascript_tag do
+  $(function(){
+  $('ul.column').sortable({connectWith: 'ul.column', dropOnEmpty: true, tolerance: 'pointer'});
+  });

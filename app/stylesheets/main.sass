@@ -126,4 +126,26 @@ body
   .column.live
     +last
     
+  .hidden
+    display: none
+    
+  / modal stuff
+  #simplemodal-container 
+    a.modalCloseImg 
+      background: url(/images/x.png) no-repeat
+      width: 25px
+      height: 29px
+      display: inline
+      z-index: 3200
+      position: absolute
+      top: -15px
+      right: -18px
+      cursor: pointer
+    background: #1D2029
+    padding: 15px
+    
+  #simplemodal-overlay
+    background: #1D2029
+    opacity: 30%
+
     

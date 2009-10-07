@@ -3,12 +3,19 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  before_filter :find_project
   # protect_from_forgery # See ActionController::RequestForgeryProtection for details
   
   layout "main.html.haml"
 
   filter_parameter_logging :password, :password_confirmation
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :logged_in?
+
+  protected
+  
+  def find_project
+    @project = Project.find_by_id(params[:project_id])
+  end
 
   private
     def current_user_session
@@ -19,6 +26,10 @@ class ApplicationController < ActionController::Base
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.user
+    end
+    
+    def logged_in?
+      !current_user.nil?
     end
 
   # Scrub sensitive parameters from your log

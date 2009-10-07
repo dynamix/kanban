@@ -1,0 +1,2 @@
+class LanesController < ApplicationController
+end
