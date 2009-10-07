@@ -1,0 +1,3 @@
+class StandardLane < Lane
+  
+end

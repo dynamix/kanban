@@ -1,0 +1,3 @@
+class RestrictedLane < Lane
+  
+end
