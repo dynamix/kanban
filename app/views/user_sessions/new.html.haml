@@ -1,0 +1,11 @@
+%h1 Login
+
+- form_for @user_session do |f|
+  %p
+    %label email
+    =f.text_field :email
+  %p
+    %label password
+    =f.text_field :password
+  %p
+    =submit_tag 'Login'
