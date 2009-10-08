@@ -1,5 +1,5 @@
 Class("BacklogController", {
-  isa: Controller,
+  isa: ItemController,
   click : function() { return {
     'a#item-link'        : this.on('show', this.show_overlay),
     '#item-form-submit'  : this.on('show', this.create_new_item)
@@ -11,7 +11,7 @@ Class("BacklogController", {
     create_new_item :function (j){
       var form = $('#new_item');
       jQuery.post(form.attr('action'), form.serialize(), function(data, textStatus){
-        $('#backlog').prepend(data);
+        $('.dnd[name=backlog]').prepend(data);
       });
       $('a.modalCloseImg').click();
       return false;

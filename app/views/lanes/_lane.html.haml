@@ -1,0 +1,5 @@
+%div.column.draggable
+  %h2
+    = lane.title
+
+  %ul.dnd.column{:id => "#{lane.id}", :href => dnd_items_url(@project, lane), :name => "#{lane.title.gsub(/\s/, "_").downcase}"}= render lane.items
