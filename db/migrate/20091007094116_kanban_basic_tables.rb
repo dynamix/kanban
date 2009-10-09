@@ -7,7 +7,7 @@ class KanbanBasicTables < ActiveRecord::Migration
     create_table  :lanes do |t|
       t.timestamps
       t.string    :title
-      t.integer   :max_items
+      t.integer   :max_items,   :default => 0
       t.integer   :position
       t.integer   :super_lane_id
       t.integer   :project_id
@@ -15,7 +15,7 @@ class KanbanBasicTables < ActiveRecord::Migration
     end
     create_table  :items do |t|
       t.timestamps
-      t.date      :start_date, :end_date
+      t.date      :start_date,  :end_date
       t.string    :title
       t.text      :text
       t.integer   :owner_id
