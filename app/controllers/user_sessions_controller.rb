@@ -1,4 +1,5 @@
 class UserSessionsController < ApplicationController
+  skip_before_filter :login_required
   
   def new
     @user_session = UserSession.new

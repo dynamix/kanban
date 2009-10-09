@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  before_filter :login_required
   before_filter :find_project
   # protect_from_forgery # See ActionController::RequestForgeryProtection for details
   
@@ -17,7 +18,13 @@ class ApplicationController < ActionController::Base
     @project = Project.find_by_id(params[:project_id])
   end
 
+  
   private
+    def login_required
+      redirect_to new_user_sessions_url unless logged_in?
+      logged_in?
+    end
+  
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
