@@ -6,7 +6,7 @@ namespace :db do
       #user = User.create(:email => "admin@madvertise.de", :password => "admin", :password_confirmation => "admin")
       project = Project.create(:name => "Madvertise")
       restricted_lanes = %w(backlog live parking)
-      standard_lanes = %w(selected in_progress development to_test deploy)
+      standard_lanes = %w(selected development to_test deploy)
       sub_lanes = %w(in_progress done)
   
       restricted_lanes.each{|lane| RestrictedLane.create(:title => lane.humanize, :project => project)}

@@ -1,5 +1,16 @@
-%div.column.draggable
-  %h2
-    = lane.title
-
-  %ul.dnd.column{:id => "#{lane.id}", :href => dnd_items_url(@project, lane), :name => "#{lane.title.gsub(/\s/, "_").downcase}"}= render lane.items
+%div.column_container
+  - if lane.is_super_lane?
+    %div.super_column{:id => "#{lane.id}", :limit => lane.max_items}
+      %h2
+        = lane.title
+        - if (lane.max_items > 0)
+          = "(#{lane.max_items})"
+      = render :partial => 'lanes/lane', :collection => lane.sub_lanes
+  - else
+    %div.column.draggable
+      %h2
+        = lane.title
+        - if (lane.max_items > 0)
+          = "(#{lane.max_items})"
+  
+      %ul.dnd.column{:id => "#{lane.id}", :href => dnd_items_url(@project, lane), :limit => lane.max_items, :name => "#{lane.title.gsub(/\s/, "_").downcase}"}= render lane.items

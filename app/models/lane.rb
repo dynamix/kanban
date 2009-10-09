@@ -7,4 +7,11 @@ class Lane < ActiveRecord::Base
   has_many :items, :order => "position"
   
   
+  
+  named_scope :standard, :conditions => {:type => 'StandardLane', :super_lane_id => nil}, :order => :position
+  
+  def is_super_lane?
+    sub_lanes.length > 0
+  end
+  
 end
