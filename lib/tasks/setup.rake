@@ -10,9 +10,9 @@ namespace :db do
       sub_lanes = %w(in_progress done)
   
       restricted_lanes.each{|lane| RestrictedLane.create(:title => lane.humanize, :project => project)}
-      standard_lanes.each_with_index{|lane, i| StandardLane.create(:title => lane.humanize, :project => project, :max_items => 6, :position => i + 1)}
+      standard_lanes.each{|lane| StandardLane.create(:title => lane.humanize, :project => project, :max_items => 6)}
       dev_lane = Lane.find_by_title 'Development'
-      sub_lanes.each_with_index{|lane, i| StandardLane.create(:title => lane.humanize, :project => project, :super_lane_id => dev_lane.id, :position => i + 1)}
+      sub_lanes.each{|lane| StandardLane.create(:title => lane.humanize, :project => project, :super_lane_id => dev_lane.id)}
     end
   end
 end

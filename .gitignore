@@ -6,3 +6,4 @@ db/*.sqlite3
 public/stylesheets/compiled/*
 public/files/**/*
 **/*.~vsd
+db/schema.rb
