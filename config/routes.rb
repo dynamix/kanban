@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :projects do |project|
     project.resource :dashboard, :name_prefix => nil
     project.resource :backlog, :name_prefix => nil
+    project.resource :livelog, :name_prefix => nil
     project.resources :lanes, :name_prefix => nil do |lanes|
       lanes.resources :items, :name_prefix => nil, :collection => {:dnd => :post}
     end

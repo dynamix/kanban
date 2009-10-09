@@ -1,0 +1,3 @@
+Class("LivelogController", {
+  isa: ItemController
+});
