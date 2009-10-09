@@ -1,3 +1,8 @@
 %h1 Dashboard
 
 = render :partial => 'lanes/lane', :collection => @standard_lanes
+
+.clear
+
+%ul.dnd.trash{:id => "#{@project.livelog.id}", :href => dnd_items_url(@project, @project.livelog)}
+  = image_tag 'guy.jpg'

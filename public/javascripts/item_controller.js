@@ -9,12 +9,12 @@ Class("ItemController", {
   
   methods: {
     enable_drag_n_drop : function (){
+
       $('ul.dnd').sortable({
           connectWith: 'ul.dnd', 
           dropOnEmpty: true, 
           tolerance: 'pointer',
           beforeStop: function(event, ui){
-              // this = source, ui.item.parent() = ziel
             var column = ui.item.parent();
             var limit = 0;
             var super_target = false;
@@ -35,7 +35,7 @@ Class("ItemController", {
             }
           },
           stop: function(event, ui){
-            var el = ui.item
+            var el = ui.item;
             var parent = $(el).parent();
             var index = parent.children().index(el) + 1;
             jQuery.post(parent.attr('href'), 
@@ -45,6 +45,9 @@ Class("ItemController", {
                 'id': el.attr('id')
               }
             );
+            if(parent.hasClass('trash')){
+              $(el).remove();
+            }
           }
       });
     }
