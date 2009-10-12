@@ -7,10 +7,11 @@
           = "(#{lane.max_items})"
       = render :partial => 'lanes/lane', :collection => lane.sub_lanes
   - else
-    %div.column.draggable
+    - name = "#{lane.title.gsub(/\s/, "_").downcase}"
+    %div.column.draggable{:class => name}
       %h2
         = lane.title
         - if (lane.max_items > 0)
           = "(#{lane.max_items})"
   
-      %ul.dnd.column{:id => "#{lane.id}", :href => dnd_items_url(@project, lane), :limit => lane.max_items, :name => "#{lane.title.gsub(/\s/, "_").downcase}"}= render lane.items
+      %ul.dnd.column{:id => "#{lane.id}", :href => dnd_items_url(@project, lane), :limit => lane.max_items, :name => name, :class => name}= render lane.items
