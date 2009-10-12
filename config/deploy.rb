@@ -33,15 +33,16 @@ end
 namespace :deploy do
 
   before 'deploy:symlink', 'deploy:symlink_shared'
-  desc 'Create sym link to uploads'
-   task :symlink_shared, :roles => [:app,:db] do
-     run "if [ ! -d #{release_path}/shared ]; then ln -fs #{shared_path} #{release_path}/shared; fi"
-   end
+  after "deploy:update_code", "deploy:copy_config_files"  
 
+  desc 'Create sym link to uploads'
+  task :symlink_shared, :roles => [:app,:db] do
+   run "if [ ! -d #{release_path}/shared ]; then ln -fs #{shared_path} #{release_path}/shared; fi"
+  end
 
    desc "Copy production config files in place"
    task :copy_config_files do
-     run("cp #{release_path}/config/database.production.yml #{release_path}/config/database.yml")
+     run("cp -f #{release_path}/config/database.production.yml #{release_path}/config/database.yml")
    end
 
 
