@@ -1,13 +1,22 @@
-#item-overlay.hidden
-  - form_for @item, :url => items_path(:project_id => @project.id, :lane_id => @backlog.id) do |f|
+- method ||= :post
+- form_for @item, :url => url, :method => method do |f|
+  .left-overlay-column
     %p
       %label Title
       %br
       = f.text_field :title
-      
+    
     %p
       %label Text
       %br
       = f.text_area :text
-    
+  .right-overlay-column
+    %p
+      %label Owner
+      %br
+      = f.select :owner_id, User.all.collect{|u| [u.name, u.id]}
+    %p
+      %label Estimation
+      %br
+      = f.text_field :estimation
     =submit_tag 'Save', :id => 'item-form-submit'

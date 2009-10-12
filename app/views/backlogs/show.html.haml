@@ -3,4 +3,6 @@
 
 = render :partial => 'lanes/lane', :collection => [@backlog, @selected_lane]
 
-= render 'items/item_overlay'
+#item-overlay.hidden= render 'items/item_overlay', :url => items_path(@project, @backlog)
+
+#item-edit-overlay.hidden

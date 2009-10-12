@@ -6,15 +6,29 @@ Class("ItemController", {
       this.enable_drag_n_drop();
     }
   },
+
   
   methods: {
-    enable_drag_n_drop : function (){
-
+    load_edit_overlay : function(e){
+      $('#item-edit-overlay').load($(e.currentTarget).attr('href'), '', function (responseText, textStatus, XMLHttpRequest) {
+        $('#item-edit-overlay').modal();
+      });
+    },
+    enable_drag_n_drop : function(){
+      var is_click = true;
+      var self = this;
+      $('li.item').bind('click', function(e){
+        if(is_click)
+          self.load_edit_overlay(e);
+        else
+          is_click = true; // was drag'n'drop, enable click again
+      });
       $('ul.dnd').sortable({
           connectWith: 'ul.dnd', 
           dropOnEmpty: true, 
           tolerance: 'pointer',
           beforeStop: function(event, ui){
+            is_click = false; // disable click
             var column = ui.item.parent();
             var limit = 0;
             var super_target = false;

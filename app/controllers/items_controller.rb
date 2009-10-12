@@ -2,13 +2,18 @@ class ItemsController < ApplicationController
   
   before_filter :find_lane
   
+  def edit
+    @item = @lane.items.find_by_id(params[:id])
+    return render(:partial => 'item_overlay', :locals => {:url => item_path(@project, @lane, @item), :method => :put})
+  end
+  
   def create
     @item = Item.new(params[:item])
     @item.owner = current_user
     @item.lane = @lane
     @item.save
     @lane.items.last.move_to_top
-    return render(:partial => 'item', :object => @item)
+    return render(:partial => 'item', :locals => {:lane => @lane}, :object => @item)
   end
   
   def dnd
