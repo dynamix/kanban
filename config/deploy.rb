@@ -34,7 +34,7 @@ namespace :deploy do
 
   before 'deploy:symlink', 'deploy:symlink_shared'
   desc 'Create sym link to uploads'
-   task :symlink_uploads, :roles => [:app,:db] do
+   task :symlink_shared, :roles => [:app,:db] do
      run "if [ ! -d #{release_path}/shared ]; then ln -fs #{shared_path} #{release_path}/shared; fi"
    end
 
