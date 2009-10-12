@@ -1,9 +1,15 @@
+!blueprint_grid_columns = 30
+!blueprint_grid_margin = 8px
+!blueprint_grid_width = 40px
+
 @import blueprint.sass
 @import blueprint/modules/scaffolding.sass
 
 / @import compass/reset.
 @import compass/utilities.sass
 @import blueprint/screen.sass
+
+
 
 / +blueprint-scaffolding
 
@@ -111,15 +117,21 @@ body
     clear: both
 
   .column
-    +column(4)
-    / padding: 5px
-    / border-left: 1px #ccc solid
+    +column(6)
+    margin-right: 6px
+    
+    &.parking, &.backlog, &.live
+      +push(6)
+      +column(12)
+
     h2
       border-bottom: 1px #ccc solid
     ul.column
       padding-top: 10px
       border-bottom: 1px solid #666
       border-top: 1px solid #666
+      &.parking, &.backlog, &.live
+        +push(0)
   
     li.story
       border: 1px solid #ccc
