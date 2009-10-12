@@ -2,9 +2,9 @@ namespace :db do
   
   namespace :setup do
     desc "Basic setup with madvertise project, lanes and admin"
-    task :madvertise => :environment do
-      #user = User.create(:email => "admin@madvertise.de", :password => "admin", :password_confirmation => "admin")
-      project = Project.create(:name => "Madvertise")
+    task :demo => :environment do
+      user = User.create(:email => "admin@demo.de", :password => "admin", :password_confirmation => "admin")
+      project = Project.create(:name => "Demo")
       restricted_lanes = %w(backlog live parking)
       standard_lanes = %w(selected development to_test deploy)
       sub_lanes = %w(in_progress done)

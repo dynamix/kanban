@@ -154,6 +154,7 @@ body
     
   / modal stuff
   #simplemodal-container 
+    +column(16)
     a.modalCloseImg 
       background: url(/images/x.png) no-repeat
       width: 25px
@@ -170,5 +171,11 @@ body
   #simplemodal-overlay
     background: #1D2029
     opacity: 30%
-
+    
+  .left-overlay-column
+    +column(8)
+  .right-overlay-column
+    +column(7)
+    input[type='submit']
+      float: right
     
