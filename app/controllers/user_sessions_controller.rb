@@ -18,7 +18,7 @@ class UserSessionsController < ApplicationController
     @user_session.save do |result|
       if result
         user = User.find_by_email(@user_session.email)
-        return redirect_to backlog_url(:project_id => Project.find_by_name('Madvertise').id)
+        return redirect_to backlog_url(:project_id => Project.first.id)
       else
         render 'new'
       end
