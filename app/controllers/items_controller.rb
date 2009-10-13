@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
     @item.text = params[:item][:text]
     @item.estimation = params[:item][:estimation]
     @item.save
-    return render(:partial => 'item', :locals => {:lane => @lane}, :object => @item)
+    return render(:partial => 'item_content', :locals => {:item => @item})
   end
   
   def create

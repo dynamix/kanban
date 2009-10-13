@@ -15,9 +15,10 @@ Class("ItemController", {
     update_item :function (j){
       var self = this;
       var form = $('.edit_item');
+      var id = form.attr('id').substr(10);
+      console.log(id);
       jQuery.post(form.attr('action'), form.serialize() + "&_method=put", function(data, textStatus){
-        var backlog = $('.dnd[name=backlog]');
-        backlog.prepend(data);
+        $('li#' + id).html(data);
       });
       $('a.modalCloseImg').click();
       return false;
