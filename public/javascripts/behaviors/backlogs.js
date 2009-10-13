@@ -2,9 +2,10 @@ Class("BacklogController", {
   isa: ItemController,
   
   click : function() { return {
-    'a#item-link'        : this.on('show', this.show_overlay),
-    '#item-form-submit'  : this.on('show', this.create_new_item),
-    'li.item'            : this.on('show', this.item_click)
+    'a#item-link'             : this.on('show', this.show_overlay),
+    '#item-form-submit-post'  : this.on('show', this.create_new_item),
+    '#item-form-submit-put'   : this.on('show', this.update_item),
+    'li.item'                 : this.on('show', this.item_click)
   }},
   methods:{
     show_overlay : function (j){

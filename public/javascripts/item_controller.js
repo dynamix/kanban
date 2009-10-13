@@ -12,6 +12,16 @@ Class("ItemController", {
   },
   
   methods: {
+    update_item :function (j){
+      var self = this;
+      var form = $('.edit_item');
+      jQuery.post(form.attr('action'), form.serialize() + "&_method=put", function(data, textStatus){
+        var backlog = $('.dnd[name=backlog]');
+        backlog.prepend(data);
+      });
+      $('a.modalCloseImg').click();
+      return false;
+    },
     item_click : function(j){
       var self = this;
       if(self.is_click == null)

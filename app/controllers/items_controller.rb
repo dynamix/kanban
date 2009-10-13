@@ -8,7 +8,13 @@ class ItemsController < ApplicationController
   end
   
   def update
-    
+    @item = @lane.items.find_by_id(params[:id])
+    @item.owner_id = params[:item][:owner_id]
+    @item.title = params[:item][:title]
+    @item.text = params[:item][:text]
+    @item.estimation = params[:item][:estimation]
+    @item.save
+    return render(:partial => 'item', :locals => {:lane => @lane}, :object => @item)
   end
   
   def create
