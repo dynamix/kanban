@@ -1,3 +1,4 @@
 %li.item.story{:id => "#{item.id}", :href => edit_item_url(@project, lane, item)}
   %h3= item.title
+  %span.owner=item.owner
   %p= item.text

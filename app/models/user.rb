@@ -3,4 +3,7 @@ class User < ActiveRecord::Base
     
   has_many :items
   has_many :history_entries, :as => :trigger
+  def to_s
+    name
+  end
 end
