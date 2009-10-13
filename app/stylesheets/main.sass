@@ -1,5 +1,5 @@
-!blueprint_grid_columns = 30
-!blueprint_grid_margin = 8px
+!blueprint_grid_columns = 32
+!blueprint_grid_margin = 10px
 !blueprint_grid_width = 40px
 
 @import blueprint.sass
@@ -51,8 +51,7 @@ body
     font-size: 12px
     +hover-link
     +link-colors(#005E8F,red)    
-
-
+    
   #topnav_container
     background: #1D2029
     
@@ -118,15 +117,27 @@ body
 
   .column
     +column(6)
-    margin-right: 6px
+    / margin-right: 6px
     
     &.parking, &.backlog, &.live
-      +push(6)
+      / +push(6)
       +column(12)
-
     h2
-      border-bottom: 1px #ccc solid
+      border: 1px #ccc solid
+      margin: 0px
+      background: #f0f0f0
+      color: #88201B
+      padding-left: 5px
+      margin-bottom: 5px
+
+    &.selected, &.to_test, &.deploy, &.backlog
+      h2
+        padding-bottom: 28px
+
+    &.parking
+      margin-top: 30px
     ul.column
+      margin-top: 0px
       padding-top: 10px
       border-bottom: 1px solid #666
       border-top: 1px solid #666
@@ -137,10 +148,23 @@ body
       border: 1px solid #ccc
       margin-bottom: 5px
       padding: 5px
+
+  .super_column
+    +column(12)
+
+    h2
+      border: 1px #ccc solid
+      margin: 0px
+      margin-bottom: 5px
+      background: #f0f0f0
+      color: #88201B
+      padding-left: 3px
   
-  .column_container
-    float: left
+    
   .column.live
+    +last
+
+  .column.done
     +last
     
   .trash
@@ -178,4 +202,6 @@ body
     +column(7)
     input[type='submit']
       float: right
-    
+  .nav
+    a
+      margin-bottom: 15px
