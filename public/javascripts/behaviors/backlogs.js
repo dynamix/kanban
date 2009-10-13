@@ -1,17 +1,22 @@
 Class("BacklogController", {
   isa: ItemController,
+  
   click : function() { return {
     'a#item-link'        : this.on('show', this.show_overlay),
-    '#item-form-submit'  : this.on('show', this.create_new_item)
+    '#item-form-submit'  : this.on('show', this.create_new_item),
+    'li.item'            : this.on('show', this.item_click)
   }},
   methods:{
     show_overlay : function (j){
       $('#item-overlay').modal();
     },
     create_new_item :function (j){
+      var self = this;
       var form = $('#new_item');
       jQuery.post(form.attr('action'), form.serialize(), function(data, textStatus){
-        $('.dnd[name=backlog]').prepend(data);
+        var backlog = $('.dnd[name=backlog]');
+        backlog.prepend(data);
+        //backlog.children('li.item:first').bind('click', self.bind_item_click());
       });
       $('a.modalCloseImg').click();
       return false;

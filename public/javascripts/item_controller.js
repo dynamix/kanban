@@ -1,34 +1,39 @@
 Class("ItemController", {
   isa: Controller,
+
+  has : {
+    is_click : true
+  },
   
   after: {
     initialize : function() {
       this.enable_drag_n_drop();
     }
   },
-
   
   methods: {
-    load_edit_overlay : function(e){
-      $('#item-edit-overlay').load($(e.currentTarget).attr('href'), '', function (responseText, textStatus, XMLHttpRequest) {
+    item_click : function(j){
+      var self = this;
+      if(self.is_click == null)
+        self.is_click = true;
+      if(self.is_click)
+        self.load_edit_overlay(j.attr('href'));
+      else
+        self.is_click = true; // was drag'n'drop, enable click again
+    },
+    load_edit_overlay : function(url){
+      $('#item-edit-overlay').load(url, '', function (responseText, textStatus, XMLHttpRequest) {
         $('#item-edit-overlay').modal();
       });
     },
     enable_drag_n_drop : function(){
-      var is_click = true;
       var self = this;
-      $('li.item').bind('click', function(e){
-        if(is_click)
-          self.load_edit_overlay(e);
-        else
-          is_click = true; // was drag'n'drop, enable click again
-      });
       $('ul.dnd').sortable({
           connectWith: 'ul.dnd', 
           dropOnEmpty: true, 
           tolerance: 'pointer',
           beforeStop: function(event, ui){
-            is_click = false; // disable click
+            self.is_click = false; // disable click
             var column = ui.item.parent();
             var limit = 0;
             var super_target = false;
@@ -57,6 +62,9 @@ Class("ItemController", {
                 'index': index,
                 'target_lane_id': parent.attr('id'),
                 'id': el.attr('id')
+              },
+              function(data, bla){
+                self.is_click = true; // disable click
               }
             );
             if(parent.hasClass('trash')){

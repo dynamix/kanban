@@ -7,6 +7,10 @@ class ItemsController < ApplicationController
     return render(:partial => 'item_overlay', :locals => {:url => item_path(@project, @lane, @item), :method => :put})
   end
   
+  def update
+    
+  end
+  
   def create
     @item = Item.new(params[:item])
     @item.owner = current_user
