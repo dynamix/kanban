@@ -144,10 +144,16 @@ body
       &.parking, &.backlog, &.live
         +push(0)
   
-    li.story
+    li.item
       border: 1px solid #ccc
       margin-bottom: 5px
       padding: 5px
+      h3
+        font-weight: bold
+      .owner
+        / background: #333
+        color: green
+
 
   .super_column
     +column(12)
