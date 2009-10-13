@@ -7,3 +7,4 @@ public/stylesheets/compiled/*
 public/files/**/*
 **/*.~vsd
 db/schema.rb
+app/helpers/user_sessions_helper.rb
