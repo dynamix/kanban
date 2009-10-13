@@ -27,6 +27,9 @@ Rails::Initializer.run do |config|
   config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list', :source => 'http://gems.github.com'
   
   config.gem 'RedCloth'
+  config.gem "vestal_versions"
+  config.gem "to_activerecord"
+  
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
