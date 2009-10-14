@@ -4,6 +4,7 @@ tmp/**/*
 config/database.yml
 db/*.sqlite3
 public/files/**/*
+public/stylesheets/compiled/*.css
 **/*.~vsd
 db/schema.rb
 app/helpers/user_sessions_helper.rb
