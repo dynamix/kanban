@@ -1,5 +1,9 @@
 class Item < ActiveRecord::Base
-  has_many :history_items
+  # vestal_versions plugin
+  # http://github.com/laserlemon/vestal_versions
+  versioned
+
+  has_many :history_entries
   belongs_to :lane
   belongs_to :owner, :class_name => 'User'
   
