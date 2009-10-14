@@ -1,7 +1,8 @@
 %h1 Backlog
 .nav= link_to "New Item", '#', :id => 'item-link'
 
-= render :partial => 'lanes/lane', :collection => [@backlog, @selected_lane]
+= render :partial => 'lanes/lane', :object => @backlog
+= render :partial => 'lanes/lane', :object => @selected_lane, :locals => {:slide => 'slide'}
 
 #item-overlay.hidden= render 'items/item_overlay', :url => items_path(@project, @backlog)
 

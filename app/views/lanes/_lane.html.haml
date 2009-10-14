@@ -1,4 +1,4 @@
-/ %div.column_container
+- slide ||= nil
 - if lane.is_super_lane?
   %div.super_column{:id => "#{lane.id}", :limit => lane.max_items}
     %h2
@@ -9,7 +9,7 @@
 - else
   
   - name = "#{lane.title.gsub(/\s/, "_").downcase}"
-  %div.column.draggable{:class => name}
+  %div.column.draggable{:class => name + " #{slide}"}
     %h2
       = lane.title
       - if (lane.max_items > 0)
