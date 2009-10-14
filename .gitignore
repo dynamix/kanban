@@ -3,7 +3,7 @@ log/*.log
 tmp/**/*
 config/database.yml
 db/*.sqlite3
-public/stylesheets/compiled/*
+public/stylesheets/compiled/*.css
 public/files/**/*
 **/*.~vsd
 db/schema.rb
