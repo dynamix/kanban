@@ -14,4 +14,24 @@ module ApplicationHelper
      end
   end
   
+  def total_wip_for_item(item)
+     total = item.wip_total || 0
+     entry = item.current_lane_entry || Time.now
+    distance_of_time_in_words(entry, Time.now+ total)
+  end
+  def current_wip_for_item(item)
+    return nil if !item.current_lane_entry
+    distance_of_time_in_words(item.current_lane_entry,Time.now)
+  end
+  # 
+  # def class_for_item(item)
+  #   return "" if !item.current_lane_entry
+  #   case item.current_lane_entry
+  #     distance = Time.now - item.current_lane_entry
+  #     when 1..NORMAL_WIP
+  #       'normal'
+  #     when 
+  #   end
+  # end
+  
 end

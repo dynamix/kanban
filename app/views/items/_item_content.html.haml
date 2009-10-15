@@ -1,6 +1,8 @@
-%h3= item.title
+%h3[item.todo_state]= item.title
 - if item.owner
   %span.owner="owner: #{item.owner}"
 
+.current_wip="current wip: #{current_wip_for_item(item)}"
+.total_wip="total wip: #{total_wip_for_item(item)}"
 - if item.text
   %p= item.text.to_html
