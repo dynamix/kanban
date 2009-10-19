@@ -27,7 +27,7 @@ Class("ItemController", {
       if(self.is_click == null)
         self.is_click = true;
       if(self.is_click)
-        self.load_edit_overlay(j.attr('href'));
+        self.load_edit_overlay($('#item_url', j).attr('value'));
       else
         self.is_click = true; // was drag'n'drop, enable click again
     },
