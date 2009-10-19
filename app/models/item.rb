@@ -39,7 +39,9 @@ class Item < ActiveRecord::Base
   def update_time_counters
     return unless changed? and !changes["lane_id"].nil?
     old_lane_id,new_lane_id = changes["lane_id"]
-    old_lane,new_lane = old_lane_id.to_lane, new_lane_id.to_lane
+    
+    old_lane = old_lane_id.to_lane if old_lane_id
+    new_lane =  new_lane_id.to_lane if new_lane_id
     
     # add the time spent in the old_lane to the wip_total
     if old_lane and  current_lane_entry #and old_lane.new_lane.counts_wip # not_needed?
