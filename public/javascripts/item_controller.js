@@ -16,7 +16,6 @@ Class("ItemController", {
       var self = this;
       var form = $('.edit_item');
       var id = form.attr('id').substr(10);
-      console.log(id);
       jQuery.post(form.attr('action'), form.serialize() + "&_method=put", function(data, textStatus){
         $('li#' + id).html(data);
       });
