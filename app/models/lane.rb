@@ -8,7 +8,7 @@ class Lane < ActiveRecord::Base
   
   
   
-  named_scope :standard, :conditions => {:type => 'StandardLane', :super_lane_id => nil}, :order => :position
+  named_scope :restricted, :conditions => {:type => 'RestrictedLane', :super_lane_id => nil}, :order => :position
   
   def is_super_lane?
     sub_lanes.length > 0

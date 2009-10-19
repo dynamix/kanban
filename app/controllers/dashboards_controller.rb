@@ -2,7 +2,7 @@ class DashboardsController < ApplicationController
 
   
   def show
-    @standard_lanes = @project.lanes.standard
+    @restricted_lanes = @project.lanes.restricted
     @parking_lane = @project.parking
   end
   
