@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
     @target_lane = Lane.find_by_id(params[:target_lane_id])
     @item.remove_from_list
     @item.lane = @target_lane
-    @item.owner = current_user
+#    @item.owner = current_user
     @item.insert_at(params[:index])
     return render(:partial => 'item_content', :locals => {:item => @item})
   end
