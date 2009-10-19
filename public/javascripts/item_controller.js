@@ -76,7 +76,7 @@ Class("ItemController", {
               },
               function(data, textStatus){  
                 self.is_click = true; // disable click
-                $('li#' + id).html(data);
+                $('li#' + id).html(data).effect("highlight", {}, 1000);
               }
             );
             if(parent.hasClass('trash')){
