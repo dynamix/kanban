@@ -66,6 +66,7 @@ Class("ItemController", {
           stop: function(event, ui){
             var el = ui.item;
             var parent = $(el).parent();
+            var id = $(el).attr('id');
             var index = parent.children().index(el) + 1;
             jQuery.post(parent.attr('href'), 
               {
@@ -73,8 +74,9 @@ Class("ItemController", {
                 'target_lane_id': parent.attr('id'),
                 'id': el.attr('id')
               },
-              function(data, bla){
+              function(data, textStatus){  
                 self.is_click = true; // disable click
+                $('li#' + id).html(data);
               }
             );
             if(parent.hasClass('trash')){

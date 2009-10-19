@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
     @item.lane = @target_lane
     @item.owner = current_user
     @item.insert_at(params[:index])
-    return render(:nothing => true)
+    return render(:partial => 'item_content', :locals => {:item => @item})
   end
   
   protected
