@@ -11,7 +11,7 @@ class Lane < ActiveRecord::Base
   named_scope :restricted, :conditions => {:type => 'RestrictedLane', :super_lane_id => nil}, :order => :position
   
   def is_super_lane?
-    sub_lanes.length > 0
+    sub_lanes.count > 0
   end
   
 end
