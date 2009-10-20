@@ -1,9 +1,7 @@
 class DashboardsController < ApplicationController
-
   
   def show
-    @standard_lanes = @project.lanes.standard
-    @parking_lane = @project.parking
+    @lanes = @project.lanes.top_level.on_dashboard
   end
   
 end

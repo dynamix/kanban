@@ -14,4 +14,14 @@ module ApplicationHelper
      end
   end
   
+  def lane_params(lane, last = false)
+    res = { :id => "#{lane.id}", :limit => lane.max_items }
+    res[:class] = ""
+    res[:class] += ' super ' if lane.is_super_lane?
+    res[:class] += ' last ' if last
+    res[:class] += ' top ' if lane.sub_lanes.length == 0 || lane.is_super_lane?
+    res[:class] += ' ' + lane.title.gsub(/\s/, "_").downcase + ' '
+    res
+  end
+
 end

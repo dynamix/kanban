@@ -1,216 +1,191 @@
-!blueprint_grid_columns = 32
+!blueprint_grid_columns = 28
 !blueprint_grid_margin = 10px
 !blueprint_grid_width = 40px
 
-@import blueprint.sass
-@import blueprint/modules/scaffolding.sass
-
-/ @import compass/reset.
+@import compass/reset
 @import compass/utilities.sass
+@import compass/layout.sass
 @import blueprint/screen.sass
 
++blueprint
 
+!kanban_blue = #1D2029
+!kanban_grey = #aaaaaa
 
-/ +blueprint-scaffolding
+/ html, body
+/   :height 100%
 
-body
-  / +blueprint-typography
-  margin: 0px
-  color: #444444
-  font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif
-  font-size: 11px
-  font-size-adjust: none
-  font-style: normal
-  font-variant: normal
-  font-weight: normal
-  letter-spacing: -0.04em
-  line-height: normal
-
-  h1
-    color: #88201B
-    font-size: 20px
-    padding-top: 10px
-    padding-bottom: 10px
+body  
+  #root
+    :background-color = !kanban_grey
+  .hidden
+    display: none
+  
+  #content
+    +container
+    :width auto
+    :padding 10px
+    :background-color = !kanban_grey
+    :bottom 10px
+    :min-height 80%
+    :height auto !important
     
-  h2
-    color: #005E8F
-    font-size: 14px
-    line-height: 1.5
-    font-weight: bold
+  .nav
+    a
+      margin-bottom: 15px
 
+  / modal stuff
+  #simplemodal-overlay
+    :background #1D2029
+    :opacity 30%
+
+  #simplemodal-container
+    :color #FFFFFF
+    :-webkit-border-radius 4px
+    :-webkit-box-shadow 5px 5px 5px rgba(0,0,0,0.5)
+    :-moz-box-shadow 5px 5px 5px
+    :-moz-border-radius 4px
+    +column(10)
+    div
+      +column(10)
+      +last
+    :background = #1D2029
+    :padding 15px
+    input, textarea
+      :width 98%
+    a.modalCloseImg 
+      :background url(/images/x.png) no-repeat
+      :width 25px
+      :height 29px
+      :display inline
+      :z-index 3200
+      :position absolute
+      :top -15px
+      :right -18px
+      :cursor pointer
+    .save
+      input
+        :width 100px
+    .owner
+      +column(4)
+      select
+        :width 98%
+    .estimation
+      input
+        :width 98%
+      +column(6)
+      +last
+      
+  
   li
     list-style: none
   ul
     +global-reset
     padding: 0px
 
-  p
-    font-family: Helvetica,Arial,sans-serif
-    color: #777
   a
     font-size: 12px
     +hover-link
     +link-colors(#005E8F,red)    
     
   #topnav_container
-    background: #1D2029
+    :background-color = !kanban_blue
+    :height 50px
+    :overflow hidden
+    :right 0
+    :top 0
+    :width 100%
     
-    / url(http://) repeat-x scroll 0 0
-    height: 50px
-    overflow: hidden
-    right: 0
-    top: 0
-    width: 100%
-    #topnav
-      +container
-      h1
-        padding: 0px
-        line-height: 1.0
-        margin: 0px
-        font-size: 18px
-        color: #005E8F
-        padding-right: 200px
-        
+    h1
+      +column(4)
+      :padding 12px
+      :font-size 24px
+      span
+        &.static
+          :color = #FFFFFF - #707070
+        &.dynamic
+          :color = #FFFFFF
+  
+    #topnav    
       ul
+        +column(5)
         +horizontal-list
-        padding: 16px
-        padding-left: 0px
+        :padding 16px
+        :padding-left 0px
+        &.static
+          :float right
         li
-          padding-right: 20px
+          :padding-right 20px
         
       a
-        font-size: 14px
+        :font-size 14px
         +hover-link
         +link-colors(white, red)
-        
-  / #main_panel_container
-  /   +container
-  /   border: 1px solid #f0f0f0
-
-  #sub_header_container
-    background: #F0F0F0 none repeat scroll 0 0
-    width: 100%
-    #sub_header
-      +container
-      / padding: 15px
-      #heading
-        +column(10)
-      #sub_nav
-        +column(14,last)
-        padding-top: 23px
-        text-align: right
-        a
-          +hover-link
-          +link-colors(#777777,#88201B)
-          font-size: 14px
-          padding-left: 15px
-          
-          
-
-  #content
-    +container
-    padding: 15px
-    border: 1px solid #cecece
 
   .clear
     clear: both
-
-  .column
-    +column(6)
-    / margin-right: 6px
+  
+  
+  div.lane
+    &.last
+      +last
+    ul
+      :width 100%
+      :min-height 400px
+      :margin 0px
+      :padding 0px
+      li
+        :padding 2px
+        :margin 3px
+        :margin-left 10px
+        :border 1px solid #DBE1D2
+        :-webkit-border-radius 4px
+        :background-color #EBE6C7
+        /:-webkit-box-shadow 5px 5px 5px rgba(0,0,0,0.5)
+        /:-moz-box-shadow 5px 5px 5px
+        :-moz-border-radius 4px
+        .owner
+          :font-size 0.75em
+          :color #A1A1A0
     
-    &.parking, &.backlog, &.live
-      / +push(6)
-      +column(12)
-    h2
-      border: 1px #ccc solid
-      margin: 0px
-      background: #f0f0f0
-      color: #88201B
-      padding-left: 5px
-      margin-bottom: 5px
-
-    &.selected, &.to_test, &.deploy, &.backlog
-      h2
-        padding-bottom: 28px
-
     &.parking
-      margin-top: 30px
-    ul.column
-      margin-top: 0px
-      padding-top: 10px
-      border-bottom: 1px solid #666
-      border-top: 1px solid #666
-      &.parking, &.backlog, &.live
-        +push(0)
-  
-    li.item
-      border: 1px solid #ccc
-      margin-bottom: 5px
-      padding: 5px
-      h3
-        font-weight: bold
-      .owner
-        / background: #333
-        color: green
-
-
-  .super_column
-    +column(12)
-
+      :background-color = #FFFFFF - #303030
+    &.super
+      :height 100%
+      +column(12)
+      :padding 4px
+      / :border solid grey 1px
+      :background-color = #FFFFFF - #505050
+      :-webkit-border-radius 6px
+      :-webkit-box-shadow 2px 2px 5px rgba(0,0,0,0.5)
+      :-moz-box-shadow 2px 2px 5px
+      :-moz-border-radius 8px
+      h2
+        :text-align center
+        :font-size 1.2em
+        :padding-top 2px
+        :margin-left 5px
+        :margin-bottom 5px
+      
+    :height 100%
+    +column(6)
+    :border solid grey 1px
+    :background-color = #FFFFFF - #101010
+    :-webkit-border-radius 6px
+    :-webkit-box-shadow 5px 5px 5px rgba(0,0,0,0.5)
+    :-moz-box-shadow 5px 5px 5px
+    :-moz-border-radius 8px
+    
     h2
-      border: 1px #ccc solid
-      margin: 0px
-      margin-bottom: 5px
-      background: #f0f0f0
-      color: #88201B
-      padding-left: 3px
+      :font-size 1.5em
+      :margin-left 10px
+      :margin-bottom 0px
+      :border-bottom 1px solid grey 
+
+#footer
+  :background-color = !kanban_blue
+
   
     
-  .column.live
-    +last
-
-  .column.done
-    +last
-    
-  .trash
-    float: right
-    background: url(/images/guy.jpg) no-repeat
-    width: 50px
-    height: 50px
-    
-  .hidden
-    display: none
-    
-  .slide
-    position: fixed
-    
-  / modal stuff
-  #simplemodal-container 
-    +column(16)
-    a.modalCloseImg 
-      background: url(/images/x.png) no-repeat
-      width: 25px
-      height: 29px
-      display: inline
-      z-index: 3200
-      position: absolute
-      top: -15px
-      right: -18px
-      cursor: pointer
-    background: #1D2029
-    padding: 15px
-    
-  #simplemodal-overlay
-    background: #1D2029
-    opacity: 30%
-    
-  .left-overlay-column
-    +column(8)
-  .right-overlay-column
-    +column(7)
-    input[type='submit']
-      float: right
-  .nav
-    a
-      margin-bottom: 15px
+!footer_height= 20px 
++sticky-footer(!footer_height, "#root", "#root_footer", "#footer")    

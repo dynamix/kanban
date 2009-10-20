@@ -1,3 +1,17 @@
+// Class("Lane", {
+//   has : {
+//     container : null,
+//     list : null,
+//     superlane : false
+//   }
+//   methods : {
+//     initialize : function(container, list) {
+//       this.setContainer(container);
+//       this.setList(list);
+//     }
+//   }
+// });
+
 Class("ItemController", {
   isa: Controller,
 
@@ -7,11 +21,46 @@ Class("ItemController", {
   
   after: {
     initialize : function() {
+      var self = this;
+      $(window).resize(function(){
+        self.fit_to_screen();
+      });
+      this.fit_to_screen();
+      this.collect_lanes();
       this.enable_drag_n_drop();
     }
   },
   
   methods: {
+    fit_to_screen : function() {
+      var lanes = $('.lane:not(.super)');
+      console.log(lanes.length);
+      var width = ($('#content').width() - 10 )/ lanes.length;
+      
+      // substract padding, marigin and border
+      var first_lane = $(lanes.get(0));
+      var delta = first_lane.outerWidth(true) - first_lane.width();
+      lanes.width(Math.floor(width) - delta);
+      
+      // set the width of superlanes
+      $('.lane.super').each( function(idx, super_lane) {
+        var super_width = 0;
+        $('.lane',super_lane).each(function(idx, lane) {
+          super_width += $(lane).outerWidth(true);
+        });
+        $(super_lane).width(super_width);
+      });
+      
+      // $.each(lanes, function(obj) {
+      //   obj.width
+      // });
+      
+      
+      
+    },
+    collect_lanes :function() {
+      //$()
+    },
     update_item :function (j){
       var self = this;
       var form = $('.edit_item');
@@ -37,27 +86,74 @@ Class("ItemController", {
         $('#item-edit-overlay').modal();
       });
     },
+    get_limit : function(column) {
+      var limit = -1;
+       if(column.parents(".super").length == 1){
+          super_column = column.parents("div.lane.super:first");
+          limit = parseInt(super_column.attr('limit'));
+          super_target = true;
+        }else{
+          limit = parseInt($('ul',column).attr('limit'));
+        }
+        console.log(limit);
+        
+        return limit;
+    },
+    // commit_move : function(url, target_lane_id, id, index) {
+    //   jQuery.post(parent.attr('href'), {
+    //       'index': index,
+    //       'target_lane_id': target_lane_id,
+    //       'id': id
+    //     }
+    //   );
+    // },
     enable_drag_n_drop : function(){
       var self = this;
       $('ul.dnd').sortable({
-          connectWith: 'ul.dnd', 
+          items: 'li',
+          connectWith: '.dnd', 
           dropOnEmpty: true, 
           tolerance: 'pointer',
+          over : function(event, ui) {
+            var column = $(event.target).parent('div.lane');
+            console.log(self.get_limit(column) , $('li',column).length);
+            var limit = self.get_limit(column);
+            var same_lane = event.target == ui.sender.get(0);
+            var item_count = $('li',column).length;
+            if( column.parent('.super').length > 0 ) 
+            {
+              item_count = $('li',column.parent('.super')).length;
+              // also same lane if same super lane
+              if(!same_lane)
+                same_lane = $(event.target).parents('.super').get(0) == ui.sender.parents('.super').get(0)
+            } 
+            if( !same_lane && limit > 0 && limit < item_count ) {
+              column.css('background-color','red');
+            } else {
+              column.pulse({speed: 750,
+                  opacityRange: [0.4,0.9]});
+            }
+          },
+          out : function(event, ui) {
+            var column = $(event.target).parents('div.lane');
+            column.recover();
+          },
+          
           beforeStop: function(event, ui){
             self.is_click = false; // disable click
             var column = ui.item.parent();
             var limit = 0;
             var super_target = false;
             var super_column = false;
-            if(column.parents(".super_column").length == 1){
-              super_column = column.parents(".super_column:first");
+            if(column.parents(".lane.super").length == 1){
+              super_column = column.parents(".lane.super:first");
               limit = parseInt(super_column.attr('limit'));
               super_target = true;
             }else{
               limit = parseInt(column.attr('limit'));
             }
             if(super_target){
-              if(super_column.attr('id') != $(this).parents(".super_column:first").attr('id') && limit > 0 && ($('li', super_column).length > (limit + 1)))
+              if(super_column.attr('id') != $(this).parents(".lane.super:first").attr('id') && limit > 0 && ($('li', super_column).length > (limit + 1)))
                 return false;
             }else{
               if(limit > 0 && column.children().length > (limit + 1))

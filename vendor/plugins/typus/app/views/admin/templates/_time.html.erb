@@ -1,0 +1,2 @@
+<li><label for="item_<%= attribute %>"><%= @resource[:class].human_attribute_name(attribute) %></label>
+<%= time_select :item, attribute, options, { :disabled => attribute_disabled?(attribute) } %></li>

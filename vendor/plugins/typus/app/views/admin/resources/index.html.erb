@@ -1,0 +1,24 @@
+<% content_for :sidebar do %>
+  <%= typus_block :location => @resource[:self], :partial => 'sidebar' %>
+  <%= actions %>
+  <%= export %>
+  <%= search %>
+  <%= filters %>
+<% end %>
+
+<h2><%= @resource[:human_name].pluralize %> <%= remove_filter_link %></h2>
+
+<%= typus_block :location => @resource[:self], :partial => 'index' %>
+
+<% unless @items.count.zero? -%>
+  <%= build_list(@resource[:class], @fields, @items) %>
+  <%= pagination %>
+<% else %>
+  <div id="flash" class="notice">
+    <% if @resource[:class].count.zero? %>
+      <p><%= _("There are no {{records}}.", :records => @resource[:human_name].pluralize.downcase) %></p>
+    <% else %>
+      <p><%= _("There are no {{records}} under this filter.", :records => @resource[:human_name].pluralize.downcase) %></p>
+    <% end %>
+  </div>
+<% end %>

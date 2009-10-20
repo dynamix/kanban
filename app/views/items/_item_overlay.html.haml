@@ -1,22 +1,21 @@
 - method ||= :post
 - form_for @item, :url => url, :method => method do |f|
-  .left-overlay-column
-    %p
-      %label Title
-      %br
-      = f.text_field :title
-    
-    %p
-      %label Text
-      %br
-      = f.text_area :text
-  .right-overlay-column
-    %p
-      %label Owner
-      %br
-      = f.select :owner_id, User.all.collect{|u| [u.name, u.id]}
-    %p
-      %label Estimation
-      %br
-      = f.text_field :estimation
-    =submit_tag 'Save', :id => "item-form-submit-#{method}"
+  %div
+    %label Title
+    %br
+    = f.text_field :title
+    .clear
+  %div
+    %label Text
+    %br
+    = f.text_area :text
+  %div.owner
+    %label Owner
+    %br
+    = f.select :owner_id, User.all.collect{|u| [u.name, u.id]}
+  %div.estimation
+    %label Estimation
+    %br
+    = f.text_field :estimation
+  %div.save
+    = submit_tag 'Save', :id => "item-form-submit-#{method}"

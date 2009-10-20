@@ -1,0 +1,21 @@
+<%
+
+  # Read only fields.
+  if @resource[:class].typus_field_options_for(:read_only).include?(attribute)
+    value = 'read_only' if %w( edit ).include?(params[:action])
+  end
+
+  # Auto generated fields.
+  if @resource[:class].typus_field_options_for(:auto_generated).include?(attribute)
+    value = 'auto_generated' if %w( new edit ).include?(params[:action])
+  end
+
+  comment = "<small>#{value} field</small>".humanize if %w( read_only auto_generated ).include?(value)
+
+  attribute_humanized = @resource[:class].human_attribute_name(attribute)
+  attribute_humanized += " (#{attribute})" if attribute.include?('_id')
+
+%>
+
+<li><label for="item_<%= attribute %>"><%= attribute_humanized %> <%= comment %></label>
+<%= text_field :item, attribute, :class => 'text', :disabled => attribute_disabled?(attribute) %></li>

@@ -1,0 +1,110 @@
+# Typus Models Configuration File
+#
+# Use the README file on the same folder as this file as a reference to
+# customize this file to your needs.
+
+HistoryEntry:
+  fields:
+    list: action, item
+    form: action, delta, item
+    show: id, created_at, updated_at, action, delta, item
+  actions:
+    index:
+    edit:
+  order_by:
+  relationships: item
+  filters:
+  search:
+  application: kanban
+  description:
+
+Item:
+  fields:
+    list: start_date, end_date, title, estimation, position, lane, owner
+    form: start_date, end_date, title, text, estimation, position, lane, owner
+    show: id, created_at, updated_at, start_date, end_date, title, text, estimation, position, lane, owner
+  actions:
+    index:
+    edit:
+  order_by:
+  relationships: history_entries, lane, owner, versions
+  filters:
+  search:
+  application: kanban
+  description:
+
+Lane:
+  fields:
+    list: title, max_items, position, type, dashboard, project, super_lane
+    form: title, max_items, position, type, dashboard, project, super_lane
+    show: id, created_at, updated_at, title, max_items, position, type, dashboard, project, super_lane
+  actions:
+    index:
+    edit:
+  order_by:
+  relationships: items, project, sub_lanes, super_lane
+  filters:
+  search:
+  application: kanban
+  description:
+
+StandardLane:
+  fields:
+    list: title, max_items, position, type, dashboard, project, super_lane
+    form: title, max_items, position, type, dashboard, project, super_lane
+    show: id, created_at, updated_at, title, max_items, position, type, dashboard, project, super_lane
+  actions:
+    index:
+    edit:
+  order_by:
+  relationships: items, project, sub_lanes, super_lane
+  filters:
+  search:
+  application: kanban
+  description:
+
+RestrictedLane:
+  fields:
+    list: title, max_items, position, type, dashboard, project, super_lane
+    form: title, max_items, position, type, dashboard, project, super_lane
+    show: id, created_at, updated_at, title, max_items, position, type, dashboard, project, super_lane
+  actions:
+    index:
+    edit:
+  order_by:
+  relationships: items, project, sub_lanes, super_lane
+  filters:
+  search:
+  application: kanban
+  description:
+
+Project:
+  fields:
+    list: name
+    form: name
+    show: id, created_at, updated_at, name
+  actions:
+    index:
+    edit:
+  order_by:
+  relationships: backlog, lanes, livelog, parking
+  filters:
+  search:
+  application: kanban
+  description:
+
+User:
+  fields:
+    list: email, crypted_password, password_salt, persistence_token, last_login_at, last_login_ip, name
+    form: email, crypted_password, password_salt, persistence_token, last_login_at, last_login_ip, name
+    show: id, email, crypted_password, password_salt, persistence_token, last_login_at, last_login_ip, created_at, updated_at, name
+  actions:
+    index:
+    edit:
+  order_by:
+  relationships: history_entries, items
+  filters:
+  search:
+  application: kanban
+  description:
+

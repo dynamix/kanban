@@ -1,0 +1,9 @@
+<% form_tag admin_sign_in_path(:back_to => params[:back_to]) do %>
+  <ul>
+  <li><label for="email"><%= _("Email") %></label>
+  <%= text_field :user, :email, :size => 20, :class => 'text' %></li>
+  <li><label for="password"><%= _("Password") %></label>
+  <%= password_field :user, :password, :size => 20, :class => 'text' %></li>
+  <li><%= submit_tag _("Sign in"), :class => 'button' %> <%= link_to _("Recover password"), admin_recover_password_path if Typus::Configuration.options[:recover_password] %></li>
+  </ul>
+<% end %>

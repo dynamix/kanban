@@ -1,0 +1,26 @@
+<% content_for :sidebar do %>
+  <%= typus_block :location => @resource[:self], :partial => 'sidebar' %>
+  <%= actions %>
+  <%= search %>
+  <%= previous_and_next %>
+<% end %>
+
+<%= display_link_to_previous if params[:back_to] %>
+
+<h2><%= link_to @resource[:human_name].pluralize, :action => 'index' %> &rsaquo;
+    <%= _("Edit") %></h2>
+
+<%= typus_block :location => @resource[:self], :partial => 'edit' %>
+
+<% form_for @item, 
+            :url  => { :action => 'update',
+                       :id => @item.id ,
+                       :back_to => params[:back_to],
+                       :resource => params[:resource],
+                       :resource_id => params[:resource_id]},
+            :html => { :multipart => true } do |f| %>
+  <%= build_form(@fields) %>
+  <p><%= submit_tag _("Update entry"), :class => 'button' %></p>
+<% end %>
+
+<%= typus_relationships %>

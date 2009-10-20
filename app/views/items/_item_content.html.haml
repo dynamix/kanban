@@ -1,6 +1,9 @@
 %h3= item.title
 - if item.owner
-  %span.owner="owner: #{item.owner}"
+  %span.owner= item.owner
 
 - if item.text
   %p= item.text.to_html
+
+%br
+

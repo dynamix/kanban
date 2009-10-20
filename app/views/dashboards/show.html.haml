@@ -1,12 +1,6 @@
-%h1 Dashboard
+= render :partial => 'lanes/lane', :collection => @lanes
 
-= render :partial => 'lanes/lane', :collection => @standard_lanes
-
-.clear
-
-= render :partial => 'lanes/lane', :object => @parking_lane
-
-%ul.dnd.trash{:id => "#{@project.livelog.id}", :href => dnd_items_url(@project, @project.livelog)}
-  = image_tag 'guy.jpg'
+-#%ul.dnd.trash{:id => "#{@project.livelog.id}", :href => dnd_items_url(@project, @project.livelog)}
+-#  = image_tag 'guy.jpg'
   
 #item-edit-overlay.hidden

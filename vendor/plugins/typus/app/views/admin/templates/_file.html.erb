@@ -1,0 +1,6 @@
+<% attachment = attribute.split('_file_name').first %>
+
+<li><label for="item_<%= attribute %>"><%= _(attachment.humanize) %></label>
+<%= file_field :item, attachment, :disabled => attribute_disabled?(attribute) %>
+<%= @item.typus_preview(attribute) unless @item.send(attribute).blank? %>
+</li>

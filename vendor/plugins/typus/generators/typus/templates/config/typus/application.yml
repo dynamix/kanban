@@ -1,0 +1,6 @@
+# Typus Models Configuration File
+#
+# Use the README file on the same folder as this file as a reference to
+# customize this file to your needs.
+
+<%= configuration[:base] %>
