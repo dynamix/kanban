@@ -6,4 +6,4 @@
 .current_wip="current wip: #{current_wip_for_item(item)}"
 .total_wip="total wip: #{total_wip_for_item(item)}"
 - if item.text
-  %p= item.text.to_html[0..100]
+  %p= item.text[0..100].to_html
