@@ -1,0 +1,6 @@
+%h1 Version history of Item:
+= render @item
+
+%h2 Versions
+%ul
+  = render :partial => 'versions/version', :collection => @item.versions(:order=>"number desc")
