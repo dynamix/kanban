@@ -49,7 +49,7 @@ module ApplicationHelper
     now = Time.now
     current = item.current_lane_entry ? (now - item.current_lane_entry) : 0
     total = now + (item.wip_total || 0) - (item.current_lane_entry || now)
-    "#{time_distance_as_number_with_unit(current)}|#{time_distance_as_number_with_unit(total)}"
+    "#{time_distance_as_number_with_unit(current)} | #{time_distance_as_number_with_unit(total)}"
   end
 
   def total_wip_for_item(item)

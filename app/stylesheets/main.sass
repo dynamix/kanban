@@ -79,10 +79,10 @@ body
       
   
   li
-    list-style: none
+    :list-style none
   ul
     +global-reset
-    padding: 0px
+    :padding 0px
 
   a
     font-size: 12px
@@ -90,9 +90,9 @@ body
     +link-colors(#005E8F,red)    
   #new_user_session
     label
-      display: block
-      font-weight: bold
-      font-size: 12px
+      :display block
+      :font-weight bold
+      :font-size 12px
     
   #topnav_container
     :background-color = !kanban_blue
@@ -155,10 +155,10 @@ body
         :-moz-border-radius 4px
         .owner
           :font-size 0.75em
-          :color #A1A1A0
+          :color #A1A1A0 
         .wip
           :font-size 0.75em
-          :color #A1A1A0
+          :color #A1A1A0 - #101010
         h3
           :font-weight bold
         &.normal

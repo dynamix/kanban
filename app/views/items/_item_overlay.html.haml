@@ -24,9 +24,12 @@
   %p
     %label Last change by
     %br
-    = @item.last_editor.to_s
-    - if @item and (@item.created_at or @item.updated_at)
-      ,
-      = distance_of_time_in_words_to_now(@item.updated_at || @item.created_at)
-      ago.
-    = link_to "show history", item_versions_path(@project,@lane,@item), :target => "_blank"  if @item and @item.version and @item.version > 1
+    - if item.last_editor
+      = item.last_editor.to_s
+      - if item and (item.created_at or item.updated_at)
+        ,
+        = distance_of_time_in_words_to_now(item.updated_at || item.created_at)
+        ago.
+      = link_to "show history", item_versions_path(@project,@lane,item), :target => "_blank"  if item and item.version and item.version > 1
+    - else
+      NEVER EDITED!
