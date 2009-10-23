@@ -69,9 +69,6 @@ Class("ItemController", {
     
     show_create_item_dialog : function(j) {
       var limit = j.parents('div.lane').attr('limit');
-      console.log('limit',limit);
-      console.log('lis',j.parents('div.lane').find('li').length);
-      
       if( limit > 0 && j.parents('div.lane').find('li').length >= limit )
       {
         alert('Lane has reach the maximum number of items!');
@@ -88,9 +85,7 @@ Class("ItemController", {
       var self = this;
       var form = $('#new_item');
       jQuery.post(form.attr('action'), form.serialize(), function(data, textStatus) {
-        console.log('.dnd[name=' + form.attr('target') + ']');
         var backlog = $('.dnd[name=' + form.attr('target') + ']');
-        console.log(backlog);
         backlog.prepend(data);
       });
       $.modal.close();
@@ -122,8 +117,6 @@ Class("ItemController", {
         }else{
           limit = parseInt($('ul',column).attr('limit'));
         }
-        console.log(limit);
-        
         return limit;
     },
 
@@ -136,7 +129,6 @@ Class("ItemController", {
           tolerance: 'pointer',
           over : function(event, ui) {
             var column = $(event.target).parent('div.lane');
-            console.log(self.get_limit(column) , $('li',column).length);
             var limit = self.get_limit(column);
             var same_lane = event.target == ui.sender.get(0);
             var item_count = $('li',column).length;
