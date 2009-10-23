@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
   has_many :history_entries
   belongs_to :lane
   belongs_to :owner, :class_name => 'User'
+  belongs_to :last_editor, :class_name => 'User'
 
   acts_as_list :scope => :lane
 

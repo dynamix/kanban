@@ -1,0 +1,5 @@
+%li.version
+  %p
+    = "##{version.number}"
+    = "created at: #{time_ago_in_words(version.created_at)}"
+  %p= "changes: #{version.changes.inspect}" if version.changes

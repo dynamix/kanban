@@ -13,6 +13,7 @@ class ItemsController < ApplicationController
     @item.title = params[:item][:title]
     @item.text = params[:item][:text]
     @item.estimation = params[:item][:estimation]
+    @item.last_editor=current_user
     @item.save
     return render(:partial => 'item_content', :locals => {:item => @item})
   end
@@ -20,7 +21,6 @@ class ItemsController < ApplicationController
   def create
     if @lane.can_take_more_items?
       @item = Item.new(params[:item])
-      @item.owner = current_user
       @item.lane = @lane
       @item.save
       @lane.items.last.move_to_top
@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
     @target_lane = Lane.find_by_id(params[:target_lane_id])
     @item.remove_from_list
     @item.lane = @target_lane
-#    @item.owner = current_user
+    @item.last_editor = current_user
     @item.insert_at(params[:index])
     return render(:partial => 'item_content', :locals => {:item => @item})
   end
