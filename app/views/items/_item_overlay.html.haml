@@ -1,5 +1,6 @@
 - method ||= :post
-- form_for @item, :url => url, :method => method do |f|
+- item = @item || Item.new
+- form_for item, :url => url, :method => method do |f|
   %div
     %label Title
     %br

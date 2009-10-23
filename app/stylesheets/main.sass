@@ -15,6 +15,7 @@
 / html, body
 /   :height 100%
 
+
 body  
   #root
     :background-color = !kanban_grey
@@ -87,6 +88,11 @@ body
     font-size: 12px
     +hover-link
     +link-colors(#005E8F,red)    
+  #new_user_session
+    label
+      display: block
+      font-weight: bold
+      font-size: 12px
     
   #topnav_container
     :background-color = !kanban_blue
@@ -122,11 +128,17 @@ body
         +hover-link
         +link-colors(white, red)
 
+
   .clear
     clear: both
   
   
   div.lane
+    .add-item-link
+      :margin-top 4px
+      :margin-right 5px
+      :position relative
+      :float right
     &.last
       +last
     ul
@@ -138,15 +150,23 @@ body
         :padding 2px
         :margin 3px
         :margin-left 10px
-        :border 1px solid #DBE1D2
         :-webkit-border-radius 4px
         :background-color #EBE6C7
-        /:-webkit-box-shadow 5px 5px 5px rgba(0,0,0,0.5)
-        /:-moz-box-shadow 5px 5px 5px
         :-moz-border-radius 4px
         .owner
           :font-size 0.75em
           :color #A1A1A0
+        .wip
+          :font-size 0.75em
+          :color #A1A1A0
+        h3
+          :font-weight bold
+        &.normal
+          :border 2px solid #DBE1D2
+        &.warn
+          :border 2px solid #ffaa00
+        &.urgent
+          :border 2px solid #ee2200
     
     &.parking
       :background-color = #FFFFFF - #303030
@@ -182,10 +202,9 @@ body
       :margin-bottom 0px
       :border-bottom 1px solid grey 
 
+
 #footer
   :background-color = !kanban_blue
-
-  
     
 !footer_height= 20px 
-+sticky-footer(!footer_height, "#root", "#root_footer", "#footer")    
++sticky-footer(!footer_height, "#root", "#root_footer", "#footer")

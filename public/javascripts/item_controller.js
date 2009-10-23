@@ -1,17 +1,3 @@
-// Class("Lane", {
-//   has : {
-//     container : null,
-//     list : null,
-//     superlane : false
-//   }
-//   methods : {
-//     initialize : function(container, list) {
-//       this.setContainer(container);
-//       this.setList(list);
-//     }
-//   }
-// });
-
 Class("ItemController", {
   isa: Controller,
 
@@ -21,21 +7,39 @@ Class("ItemController", {
   
   after: {
     initialize : function() {
+      $('.urgent').pulse({speed: 750,
+        borderColors: ['#ee2200','#ffaa00']});
       var self = this;
       $(window).resize(function(){
         self.fit_to_screen();
       });
       this.fit_to_screen();
-      this.collect_lanes();
       this.enable_drag_n_drop();
+      // apply tooltips
+      $('.item').each(function(idx,e) {
+        $(e).qtip({
+          delay: 300,
+          position: {
+            corner: {
+              target: 'bottomLeft',
+              tooltip: 'topLeft'
+            }
+          },
+          content:$('.tip',e).html()
+        });
+      });
+      
     }
   },
   
   methods: {
     fit_to_screen : function() {
       var lanes = $('.lane:not(.super)');
-      console.log(lanes.length);
       var width = ($('#content').width() - 10 )/ lanes.length;
+      
+      if(lanes.length == 2)
+        width = width - 20;
+      
       
       // substract padding, marigin and border
       var first_lane = $(lanes.get(0));
@@ -50,42 +54,65 @@ Class("ItemController", {
         });
         $(super_lane).width(super_width);
       });
-      
-      // $.each(lanes, function(obj) {
-      //   obj.width
-      // });
-      
-      
-      
     },
-    collect_lanes :function() {
-      //$()
-    },
+
     update_item :function (j){
       var self = this;
       var form = $('.edit_item');
       var id = form.attr('id').substr(10);
-      console.log(id);
       jQuery.post(form.attr('action'), form.serialize() + "&_method=put", function(data, textStatus){
-        $('li#' + id).html(data);
+        $('li#' + id).html(data).effect("highlight", {color: '#ffbe89'}, 1000);;
       });
       $('a.modalCloseImg').click();
       return false;
     },
+    
+    show_create_item_dialog : function(j) {
+      var limit = j.parents('div.lane').attr('limit');
+      console.log('limit',limit);
+      console.log('lis',j.parents('div.lane').find('li').length);
+      
+      if( limit > 0 && j.parents('div.lane').find('li').length >= limit )
+      {
+        alert('Lane has reach the maximum number of items!');
+        return false;
+      }
+      var form = $('#create-item-modal-box form');
+      form.attr('target',j.parents('div.lane').attr('name'));
+      form.attr('action', j.attr('href'));
+      $('#create-item-modal-box').modal();
+      return false;
+    },
+    
+    post_create_new_item :function (j){
+      var self = this;
+      var form = $('#new_item');
+      jQuery.post(form.attr('action'), form.serialize(), function(data, textStatus) {
+        console.log('.dnd[name=' + form.attr('target') + ']');
+        var backlog = $('.dnd[name=' + form.attr('target') + ']');
+        console.log(backlog);
+        backlog.prepend(data);
+      });
+      $.modal.close();
+      return false;
+    },
+    
     item_click : function(j){
       var self = this;
       if(self.is_click == null)
         self.is_click = true;
       if(self.is_click)
-        self.load_edit_overlay(j.attr('href'));
+        self.load_edit_overlay($('#item_url', j).attr('value'));
       else
         self.is_click = true; // was drag'n'drop, enable click again
     },
+    
     load_edit_overlay : function(url){
       $('#item-edit-overlay').load(url, '', function (responseText, textStatus, XMLHttpRequest) {
         $('#item-edit-overlay').modal();
       });
     },
+    
     get_limit : function(column) {
       var limit = -1;
        if(column.parents(".super").length == 1){
@@ -99,14 +126,7 @@ Class("ItemController", {
         
         return limit;
     },
-    // commit_move : function(url, target_lane_id, id, index) {
-    //   jQuery.post(parent.attr('href'), {
-    //       'index': index,
-    //       'target_lane_id': target_lane_id,
-    //       'id': id
-    //     }
-    //   );
-    // },
+
     enable_drag_n_drop : function(){
       var self = this;
       $('ul.dnd').sortable({
@@ -163,6 +183,7 @@ Class("ItemController", {
           stop: function(event, ui){
             var el = ui.item;
             var parent = $(el).parent();
+            var id = $(el).attr('id');
             var index = parent.children().index(el) + 1;
             jQuery.post(parent.attr('href'), 
               {
@@ -170,8 +191,9 @@ Class("ItemController", {
                 'target_lane_id': parent.attr('id'),
                 'id': el.attr('id')
               },
-              function(data, bla){
+              function(data, textStatus){  
                 self.is_click = true; // disable click
+                $('li#' + id).html(data).effect("highlight", {color: '#ffbe89'}, 1000);
               }
             );
             if(parent.hasClass('trash')){

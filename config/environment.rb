@@ -29,6 +29,8 @@ Rails::Initializer.run do |config|
   config.gem 'RedCloth'
   config.gem "vestal_versions"
   config.gem "to_activerecord"
+  config.gem "map_by_method"
+  
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

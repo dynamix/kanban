@@ -3,12 +3,13 @@ Class("DashboardController", {
   
   click : function() { return {
     '#item-form-submit-put'   : this.on('show', this.update_item),
-    'li.item'                 : this.on('show', this.item_click)
+    'li.item'                 : this.on('show', this.item_click),
+    'a.add-item-link'         : this.on('show', this.show_create_item_dialog ),
+    '#item-form-submit-post'  : this.on('show', this.post_create_new_item),
   }},
   
   after: {
     initialize : function() {
-     // this.enable_live_drop();
     }
   },
 

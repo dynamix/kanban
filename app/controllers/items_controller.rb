@@ -18,12 +18,15 @@ class ItemsController < ApplicationController
   end
   
   def create
-    @item = Item.new(params[:item])
-    @item.owner = current_user
-    @item.lane = @lane
-    @item.save
-    @lane.items.last.move_to_top
-    return render(:partial => 'item', :locals => {:lane => @lane}, :object => @item)
+    if @lane.can_take_more_items?
+      @item = Item.new(params[:item])
+      @item.owner = current_user
+      @item.lane = @lane
+      @item.save
+      @lane.items.last.move_to_top
+      return render(:partial => 'item', :locals => {:lane => @lane}, :object => @item)
+    end
+    return head(:ok)
   end
   
   def dnd
@@ -31,8 +34,9 @@ class ItemsController < ApplicationController
     @target_lane = Lane.find_by_id(params[:target_lane_id])
     @item.remove_from_list
     @item.lane = @target_lane
+#    @item.owner = current_user
     @item.insert_at(params[:index])
-    return render(:nothing => true)
+    return render(:partial => 'item_content', :locals => {:item => @item})
   end
   
   protected

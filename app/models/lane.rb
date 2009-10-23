@@ -9,9 +9,18 @@ class Lane < ActiveRecord::Base
   named_scope :on_dashboard, :conditions => {:dashboard => true}
   named_scope :top_level, :conditions => {:super_lane_id => nil}, :order => :position
   named_scope :standard, :conditions => {:type => 'StandardLane', :super_lane_id => nil}, :order => :position
+  named_scope :restricted, :conditions => {:type => 'RestrictedLane', :super_lane_id => nil}, :order => :position
   
   def is_super_lane?
-    sub_lanes.length > 0
+    sub_lanes.count > 0
+  end
+  
+  def name
+    title.gsub(/\s/, "_").downcase
+  end
+  
+  def can_take_more_items?
+    max_items == 0 ||  items.count < max_items
   end
   
 end

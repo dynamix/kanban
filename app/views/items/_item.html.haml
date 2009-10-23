@@ -1,3 +1,3 @@
-%li.item{:id => "#{item.id}", :href => edit_item_url(@project, lane, item)}
+%li.item{:id => "#{item.id}", :class => item.todo_state.to_s}
   = render 'items/item_content', :item => item
 
