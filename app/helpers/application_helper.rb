@@ -45,6 +45,7 @@ module ApplicationHelper
   end
 
   def wip_for_item(item)
+    return '-' if not item
     now = Time.now
     current = item.current_lane_entry ? (now - item.current_lane_entry) : 0
     total = now + (item.wip_total || 0) - (item.current_lane_entry || now)
