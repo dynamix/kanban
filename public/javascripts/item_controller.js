@@ -23,9 +23,22 @@ Class("ItemController", {
             corner: {
               target: 'bottomLeft',
               tooltip: 'topLeft'
+            },  
+            adjust: {
+              screen: true
             }
           },
-          content:$('.tip',e).html()
+          content:$('.tip',e).html()  ,
+          
+          style: {
+            width: 500
+          },
+          api: {
+            beforeShow : function(e) {
+              console.log("x",e);
+              return true;
+            }
+          }
         });
       });
       

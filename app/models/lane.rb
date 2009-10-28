@@ -1,4 +1,7 @@
 class Lane < ActiveRecord::Base
+  
+  acts_as_list
+  
   belongs_to :project
   belongs_to :super_lane, :class_name => 'Lane', :foreign_key => 'super_lane_id'
   

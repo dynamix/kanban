@@ -2,7 +2,7 @@
 !blueprint_grid_margin = 10px
 !blueprint_grid_width = 40px
 
-@import compass/reset
+@import blueprint/reset
 @import compass/utilities.sass
 @import compass/layout.sass
 @import blueprint/screen.sass
@@ -16,7 +16,11 @@
 /   :height 100%
 
 
-body  
+body     
+  .qtip   
+    ul
+      :list-style disc inside
+      
   #root
     :background-color = !kanban_grey
   .hidden

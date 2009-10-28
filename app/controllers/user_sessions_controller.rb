@@ -2,6 +2,11 @@ class UserSessionsController < ApplicationController
   skip_before_filter :login_required
   
   def new
+    if current_user
+      redirect_to dashboard_path(@project)
+      return
+    end
+     
     @user_session = UserSession.new
   end
   
