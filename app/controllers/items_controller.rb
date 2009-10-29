@@ -37,7 +37,14 @@ class ItemsController < ApplicationController
     @item.last_editor = current_user
     @item.insert_at(params[:index])
     return render(:partial => 'item_content', :locals => {:item => @item})
-  end
+  end              
+  
+  def destroy
+    @item = Item.find_by_id(params[:id])
+    @item.destroy if @item
+    head(:ok)
+  end                                  
+  
   
   protected
   def find_lane

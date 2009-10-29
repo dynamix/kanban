@@ -32,12 +32,6 @@ Class("ItemController", {
           
           style: {
             width: 500
-          },
-          api: {
-            beforeShow : function(e) {
-              console.log("x",e);
-              return true;
-            }
           }
         });
       });
@@ -67,6 +61,13 @@ Class("ItemController", {
         });
         $(super_lane).width(super_width);
       });
+    },
+
+    delete_item : function(j) { 
+      var self = j;
+      j.parents('li').fadeOut();
+      $.post(j.attr('href'), { '_method':'delete' });
+      return false;
     },
 
     update_item :function (j){
