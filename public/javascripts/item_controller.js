@@ -148,7 +148,7 @@ Class("ItemController", {
             var item_count = $('li',column).length;
             if( column.parent('.super').length > 0 ) 
             {
-              item_count = $('li',column.parent('.super')).length;
+              item_count = $('li.item',column.parent('.super')).length;
               // also same lane if same super lane
               if(!same_lane)
                 same_lane = $(event.target).parents('.super').get(0) == ui.sender.parents('.super').get(0)
@@ -179,7 +179,7 @@ Class("ItemController", {
               limit = parseInt(column.attr('limit'));
             }
             if(super_target){
-              if(super_column.attr('id') != $(this).parents(".lane.super:first").attr('id') && limit > 0 && ($('li', super_column).length > (limit + 1)))
+              if(super_column.attr('id') != $(this).parents(".lane.super:first").attr('id') && limit > 0 && ($('li.item', super_column).length > (limit + 1)))
                 return false;
             }else{
               if(limit > 0 && column.children().length > (limit + 1))
