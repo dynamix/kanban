@@ -41,7 +41,7 @@ module ApplicationHelper
       old_r = r
       return "#{r.to_i}#{sub}#{symbol}" if distance == 0
     end
-    result
+    '-'
   end
 
   def wip_for_item(item)
