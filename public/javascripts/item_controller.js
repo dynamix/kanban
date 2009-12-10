@@ -7,8 +7,8 @@ Class("ItemController", {
   
   after: {
     initialize : function() {
-      $('.urgent').pulse({speed: 750,
-        borderColors: ['#ee2200','#ffaa00']});
+      // $('.urgent').pulse({speed: 750,
+      //   borderColors: ['#ee2200','#ffaa00']});
       var self = this;
       $(window).resize(function(){
         self.fit_to_screen();
@@ -155,10 +155,11 @@ Class("ItemController", {
             } 
             if( !same_lane && limit > 0 && limit < item_count ) {
               column.css('background-color','red');
-            } else {
-              column.pulse({speed: 750,
-                  opacityRange: [0.4,0.9]});
-            }
+            } 
+						// else {
+						//               column.pulse({speed: 750,
+						//                   opacityRange: [0.4,0.9]});
+						//             }
           },
           out : function(event, ui) {
             var column = $(event.target).parents('div.lane');
