@@ -29,17 +29,13 @@ module ApplicationHelper
 
   def time_distance_as_number_with_unit(distance)
     return '-' if distance == 0 || !distance
-    old_r = 0
-    [['s',60], ['m',60], ['h',24], ['d',24]].each do |symbol, divider|
+    [['s',60], ['m',60], ['h',24], ['d',1]].each do |symbol, divider|
       distance, r = distance.divmod(divider) 
       if symbol == 'd'
-        sub = ((old_r/24.to_f)*10).truncate
-        sub = sub > 0 ? ",#{sub}" : ""
-      else
-        sub = ""
+        r = distance
+        distance = 0
       end
-      old_r = r
-      return "#{r.to_i}#{sub}#{symbol}" if distance == 0
+      return "#{r.to_i}#{symbol}" if distance == 0
     end
     '-'
   end

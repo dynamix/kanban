@@ -37,14 +37,17 @@ class Item < ActiveRecord::Base
   # wip_current - for the current lane
   # wip_total - for all lanes
   def update_time_counters
-    return unless changed? and !changes["lane_id"].nil?
+    unless changed? and !changes["lane_id"].nil?
+      self.current_lane_entry = Time.now if self.new_record? && self.lane && self.lane.counts_wip
+      return  
+    end
     old_lane_id,new_lane_id = changes["lane_id"]
     
     old_lane = old_lane_id.to_lane if old_lane_id
     new_lane =  new_lane_id.to_lane if new_lane_id
     
     # add the time spent in the old_lane to the wip_total
-    if old_lane and  current_lane_entry #and old_lane.new_lane.counts_wip # not_needed?
+    if old_lane and  current_lane_entry #and old_lane.counts_wip # not_needed?
       self.wip_total ||= 0
       self.wip_total += (Time.now - self.current_lane_entry)
       self.current_lane_entry=nil      
