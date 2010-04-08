@@ -28,7 +28,7 @@ class StatisticsController < ApplicationController
     wip_sums = Statistic.sum(:duration, :group => "item_id", :conditions => ["lane_id NOT IN (?)", Lane.ids_not_wip_relevant]).map{|k, v| v}.compact
     wip_num = wip_sums.length
     wip_sum = wip_sums.inject(0){|b,i| b+i}
-    @average_wip = wip_sum / wip_num
+    @average_wip = wip_num == 0 ? 0 : (wip_sum / wip_num)
   end
 end
 
