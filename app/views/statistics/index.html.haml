@@ -1,0 +1,12 @@
+%h1 Statistiken
+.stats= render :partial => 'user', :collection => @user_stats
+.clear
+.stats
+  %h2 Durchschnittliche Verweildauer in den Lanes
+  %ul
+    - @lane_stats.each do |k, v|
+      %li= "#{k}: #{time_distance_as_number_with_unit(v)}"
+.stats
+  %h2
+    Durchschnittliche WIP-Zeit eines Items:
+    = time_distance_as_number_with_unit @average_wip

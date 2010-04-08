@@ -4,8 +4,10 @@ ActionController::Routing::Routes.draw do |map|
   #map.root :board
 
   map.resource :user_sessions
+  
 
   map.resources :projects do |project|
+    project.resources :statistics, :name_prefix => nil
     project.resource :dashboard, :name_prefix => nil
     project.resource :backlog, :name_prefix => nil
     project.resource :livelog, :name_prefix => nil

@@ -9,6 +9,8 @@ class Lane < ActiveRecord::Base
   
   has_many :items, :order => "position"
   
+  has_many :statistics
+  
   named_scope :on_dashboard, :conditions => {:dashboard => true}
   named_scope :top_level, :conditions => {:super_lane_id => nil}, :order => :position
   named_scope :standard, :conditions => {:type => 'StandardLane', :super_lane_id => nil}, :order => :position
@@ -24,6 +26,20 @@ class Lane < ActiveRecord::Base
   
   def can_take_more_items?
     max_items == 0 ||  items.count < max_items
+  end
+  
+  def self.test_lane_id
+    lane = find_by_title "to Test"
+    lane ? lane.id : -1
+  end
+  
+  def self.progress_lane_id
+    lane = find_by_title "In progress"
+    lane ? lane.id : -1
+  end
+  
+  def self.ids_not_wip_relevant
+    find(:all, :conditions => ["title IN (?)", ["Backlog", "Live", "Selected", "Live - Junkyard"]]).map_by_id
   end
   
 end

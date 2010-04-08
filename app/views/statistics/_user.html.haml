@@ -1,0 +1,17 @@
+- user = user[1]
+
+%span.user_stats.left
+  %h2= user[:user].to_s
+  %ul
+    %li
+      Items bearbeitet:
+      = "#{user[:in_progress_count]} (#{user[:in_progress_unique_count]})"
+    %li
+      durchschnittliche Bearbeitungszeit:
+      = time_distance_as_number_with_unit user[:in_progress_average].to_i
+    %li
+      Items getestet:
+      = "#{user[:to_test_count]} (#{user[:to_test_unique_count]})"
+    %li
+      durchschnittliche Bearbeitungszeit:
+      = time_distance_as_number_with_unit user[:to_test_average].to_i
