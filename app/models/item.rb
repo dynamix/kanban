@@ -3,6 +3,8 @@ class Item < ActiveRecord::Base
   # http://github.com/laserlemon/vestal_versions
   versioned
   
+  has_many :statistics, :dependent => :destroy
+  
   has_many :history_entries
   belongs_to :lane
   belongs_to :owner, :class_name => 'User'
