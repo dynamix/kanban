@@ -12,7 +12,7 @@ class Statistic < ActiveRecord::Base
       week_day_of_leave = self.leave_time.wday
       self.duration = self.leave_time - self.entry_time
       self.duration -= ((number_of_days / 7) * 2 * 3600 * 24)
-      self.duration -= 2 if (number_of_days % 7) - 2 >= week_day_of_leave
+      self.duration -= (2 * 3600 * 24 ) if (number_of_days % 7) - 2 >= week_day_of_leave
     end
   end
 end
