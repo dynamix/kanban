@@ -27,15 +27,18 @@ module ApplicationHelper
   end
 
 
-  def time_distance_as_number_with_unit(distance)
+  def time_distance_as_number_with_unit(distance, extended = false)
     return '-' if distance == 0 || !distance
+    old_symbol = old_r = nil
     [['s',60], ['m',60], ['h',24], ['d',1]].each do |symbol, divider|
       distance, r = distance.divmod(divider) 
       if symbol == 'd'
         r = distance
         distance = 0
       end
-      return "#{r.to_i}#{symbol}" if distance == 0
+      return "#{r.to_i}#{symbol} #{extended && old_r ? (old_r.to_s + old_symbol) : ""}" if distance == 0
+      old_symbol = symbol
+      old_r = r
     end
     '-'
   end
