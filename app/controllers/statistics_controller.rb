@@ -18,7 +18,9 @@ class StatisticsController < ApplicationController
       @user_stats[user.id][:to_test_count] = user.statistics.count(:all, :conditions => {:lane_id => Lane.test_lane_id})
       @user_stats[user.id][:to_test_unique_count] = user.statistics.count(:all, :conditions => {:lane_id => Lane.test_lane_id}, :group => "item_id").length
       @user_stats[user.id][:in_progress_average] = user.statistics.average(:duration, :conditions => {:lane_id => Lane.progress_lane_id})
+      @user_stats[user.id][:in_progress_unique_average] = @user_stats[user.id][:in_progress_unique_count] > 0 ? ((user.statistics.sum(:duration, :conditions => {:lane_id => Lane.progress_lane_id})) / @user_stats[user.id][:in_progress_unique_count]) : 0
       @user_stats[user.id][:to_test_average] = user.statistics.average(:duration, :conditions => {:lane_id => Lane.test_lane_id})
+      @user_stats[user.id][:to_test_unique_average] = @user_stats[user.id][:to_test_unique_count] > 0 ? ((user.statistics.sum(:duration, :conditions => {:lane_id => Lane.test_lane_id})) / @user_stats[user.id][:to_test_unique_count]) : 0
     end
     lanes = Lane.all
     @lane_stats = {}
