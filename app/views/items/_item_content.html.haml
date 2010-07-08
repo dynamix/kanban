@@ -1,7 +1,9 @@
 = hidden_field :item, :url, :value => edit_item_url(@project, item.lane, item)
-%h3{klass(item.todo_state)}= item.title
+%h3{klass(item.todo_state)}
+  .id= "[#{item.id}]"
+  = item.title.strip
 .right.delete
-  = link_to 'x', item_path(@project, item.lane, item) 
+  = link_to 'x', item_path(@project, item.lane, item)
 
 - if item.owner
   %span.owner= item.owner.name
