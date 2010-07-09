@@ -12,8 +12,8 @@
 !kanban_blue = #1D2029
 !kanban_grey = #aaaaaa
 
-/ html, body
-/   :height 100%
+// html, body
+//   :height 100%
 
 
 body     
@@ -39,7 +39,7 @@ body
     a
       margin-bottom: 15px
 
-  / modal stuff
+  // modal stuff
   #simplemodal-overlay
     :background #1D2029
     :opacity 30%
@@ -50,13 +50,13 @@ body
     :-webkit-box-shadow 5px 5px 5px rgba(0,0,0,0.5)
     :-moz-box-shadow 5px 5px 5px
     :-moz-border-radius 4px
-    +column(10)
+    +column(14)
     div
-      +column(10)
+      +column(14)
       +last
     :background = #1D2029
     :padding 15px
-    input, textarea
+    input, textarea               
       :width 98%
     a.modalCloseImg 
       :background url(/images/x.png) no-repeat
@@ -76,8 +76,9 @@ body
       select
         :width 98%
     .estimation
-      input
-        :width 98%
+      input   
+        
+        :width 50px
       +column(6)
       +last
       
@@ -168,7 +169,7 @@ body
           :color #A1A1A0 - #101010
         h3         
           .id          
-            :padding-right 5px
+            :padding-right px
             :float left
             :font-size 0.8em
             :color = !kanban_grey
@@ -192,7 +193,7 @@ body
       :height 100%
       +column(12)
       :padding 4px
-      / :border solid grey 1px
+      // :border solid grey 1px
       :background-color = #FFFFFF - #505050
       :-webkit-border-radius 6px
       :-webkit-box-shadow 2px 2px 5px rgba(0,0,0,0.5)

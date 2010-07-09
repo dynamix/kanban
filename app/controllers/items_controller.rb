@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
     @item.title = params[:item][:title]
     @item.text = params[:item][:text]
     @item.estimation = params[:item][:estimation]
-    @item.last_editor=current_user
+    @item.last_editor = current_user
     @item.save
     return render(:partial => 'item_content', :locals => {:item => @item})
   end
