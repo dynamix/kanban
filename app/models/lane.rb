@@ -29,7 +29,7 @@ class Lane < ActiveRecord::Base
   end
   
   def self.test_lane_id
-    lane = find_by_title "to Test"
+    lane = find_by_title "Testing"
     lane ? lane.id : -1
   end
   
