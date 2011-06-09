@@ -11,10 +11,10 @@ class Lane < ActiveRecord::Base
   
   has_many :statistics
   
-  named_scope :on_dashboard, :conditions => {:dashboard => true}
-  named_scope :top_level, :conditions => {:super_lane_id => nil}, :order => :position
-  named_scope :standard, :conditions => {:type => 'StandardLane', :super_lane_id => nil}, :order => :position
-  named_scope :restricted, :conditions => {:type => 'RestrictedLane', :super_lane_id => nil}, :order => :position
+  scope :on_dashboard, :conditions => {:dashboard => true}
+  scope :top_level, :conditions => {:super_lane_id => nil}, :order => :position
+  scope :standard, :conditions => {:type => 'StandardLane', :super_lane_id => nil}, :order => :position
+  scope :restricted, :conditions => {:type => 'RestrictedLane', :super_lane_id => nil}, :order => :position
   
   def is_super_lane?
     sub_lanes.count > 0
@@ -39,7 +39,7 @@ class Lane < ActiveRecord::Base
   end
   
   def self.ids_not_wip_relevant
-    find(:all, :conditions => ["title IN (?)", ["Backlog", "Live", "Selected", "Live - Junkyard"]]).map_by_id
+    all(:conditions => ["title IN (?)", ["Backlog", "Live", "Selected", "Live - Junkyard"]]).map_by_id
   end
   
 end

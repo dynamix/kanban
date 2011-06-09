@@ -3,7 +3,7 @@ class UserSessionsController < ApplicationController
   
   def new
     if current_user
-      redirect_to dashboard_path(@project)
+      redirect_to project_dashboard_path(@project)
       return
     end
      
@@ -23,7 +23,7 @@ class UserSessionsController < ApplicationController
     @user_session.save do |result|
       if result
         user = User.find_by_email(@user_session.email)
-        return redirect_to backlog_url(:project_id => Project.first.id)
+        return redirect_to project_backlog_url(:project_id => Project.first.id)
       else
         render 'new'
       end

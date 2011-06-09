@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   
   def edit
     @item = @lane.items.find_by_id(params[:id])
-    return render(:partial => 'item_overlay', :locals => {:url => item_path(@project, @lane, @item), :method => :put})
+    return render(:partial => 'item_overlay', :locals => {:url => project_lane_item_path(@project, @lane, @item), :method => :put})
   end
   
   def update

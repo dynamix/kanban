@@ -40,17 +40,17 @@ class Item < ActiveRecord::Base
     unless changed? and !changes["lane_id"].nil?
       Statistic.create(:lane => self.lane, :user => self.owner, :item => self, :entry_time => Time.now) if self.new_record? && self.lane
       if !self.new_record? && !changes["owner_id"].nil?
-        stat = Statistic.find(:first, :order => 'id DESC', :conditions => {:lane_id => self.lane, :item_id => self})
+        stat = Statistic.first(:order => 'id DESC', :conditions => {:lane_id => self.lane, :item_id => self})
         stat.update_attribute(:user_id, changes["owner_id"][1]) if stat
       end
       return  
     end
     old_lane_id,new_lane_id = changes["lane_id"]
     
-    old_lane = old_lane_id.to_lane if old_lane_id
-    new_lane =  new_lane_id.to_lane if new_lane_id
+    old_lane = Lane.new(old_lane_id) if old_lane_id
+    new_lane =  Lane.new(new_lane_id) if new_lane_id
     if old_lane
-      stat = Statistic.find(:first, :order => 'id DESC', :conditions => {:lane_id => old_lane, :item_id => self})
+      stat = Statistic.first(:order => 'id DESC', :conditions => {:lane_id => old_lane, :item_id => self})
       stat.update_attribute(:leave_time, Time.now) if stat
     end
     Statistic.create(:lane => new_lane, :user => self.owner, :item => self, :entry_time => Time.now) if new_lane
@@ -66,8 +66,8 @@ class Item < ActiveRecord::Base
     end
     old_lane_id,new_lane_id = changes["lane_id"]
     
-    old_lane = old_lane_id.to_lane if old_lane_id
-    new_lane =  new_lane_id.to_lane if new_lane_id
+    old_lane = Lane.new(old_lane_id) if old_lane_id
+    new_lane = Lane.new(new_lane_id)if new_lane_id
 
     # add the time spent in the old_lane to the wip_total
     if old_lane and  current_lane_entry #and old_lane.counts_wip # not_needed?

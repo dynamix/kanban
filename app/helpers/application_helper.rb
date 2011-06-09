@@ -2,7 +2,7 @@
 module ApplicationHelper
   
   def js_behavior
-    path = "#{RAILS_ROOT}/public/javascripts/behaviors"
+    path = "#{Rails.root}/public/javascripts/behaviors"
     js_file = File.join(path, controller.controller_path + '.js')
      if File.exists?(js_file)
        controller_name = controller.controller_path.classify.split('::').last

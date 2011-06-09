@@ -1,0 +1,9 @@
+# auto create gemset if not exists
+rvm_gemset_create_on_use_flag=1
+PROJECT_NAME=$(basename `pwd`)
+BRANCH_NAME="$(parse_git_branch)"
+
+USE_GEMSET="${PROJECT_NAME}_${BRANCH_NAME}"
+
+# RVM COMMAND
+rvm use 1.9.2@"$USE_GEMSET"

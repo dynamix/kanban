@@ -1,34 +1,29 @@
-# Be sure to restart your server when you modify this file.
+Typus.setup do |config|
 
-# System wide options
+  # Application name.
+  config.admin_title = "kanban"
+  # config.admin_sub_title = ""
 
-Typus::Configuration.options[:app_name] = 'kanban'
-# Typus::Configuration.options[:config_folder] = 'config/typus'
-# Typus::Configuration.options[:default_locale] = :en
-# Typus::Configuration.options[:email] = 'admin@example.com'
-# Typus::Configuration.options[:file_preview] = :typus_preview
-# Typus::Configuration.options[:file_thumbnail] = :typus_thumbnail
-# Typus::Configuration.options[:recover_password] = true
-# Typus::Configuration.options[:relationship] = 'typus_users'
-# Typus::Configuration.options[:root] = 'admin'
-# Typus::Configuration.options[:ssl] = false
-# Typus::Configuration.options[:user_class_name] = 'TypusUser'
-# Typus::Configuration.options[:user_fk] = 'typus_user_id'
+  # When mailer_sender is set, password recover is enabled. This email
+  # address will be used in Admin::Mailer.
+  # config.mailer_sender = "admin@example.com"
 
-# Model options which can also be defined by model on the yaml files.
+  # Define paperclip attachment styles.
+  # config.file_preview = :medium
+  # config.file_thumbnail = :thumb
 
-# Typus::Configuration.options[:default_action_on_item] = 'edit'
-# Typus::Configuration.options[:end_year] = Time.now.year + 1
-# Typus::Configuration.options[:form_rows] = 15
-# Typus::Configuration.options[:index_after_save] = true
-# Typus::Configuration.options[:minute_step] = 5
-# Typus::Configuration.options[:nil] = 'nil'
-# Typus::Configuration.options[:on_header] = false
-# Typus::Configuration.options[:only_user_items] = false
-# Typus::Configuration.options[:per_page] = 15
-# Typus::Configuration.options[:sidebar_selector] = 5
-# Typus::Configuration.options[:start_year] = Time.now.year - 10
-# Typus::Configuration.options[:tiny_mce] = { :theme => 'advanced',
-#                                             :theme_advanced_toolbar_location => 'top',
-#                                             :theme_advanced_toolbar_align => 'left' }
-# Typus::Configuration.options[:toggle] = true
+  # Authentication: +:none+, +:http_basic+
+  # Run `rails g typus:migration` if you need an advanced authentication system.
+  # config.authentication = :none
+
+  # Define username and password for +:http_basic+ authentication
+  # config.username = "admin"
+  # config.password = "columbia"
+
+  # Pagination options:
+  # These options are passed to `will_paginate`. You can see the available
+  # options in the plugin source. (https://github.com/mislav/will_paginate/blob/rails3/lib/will_paginate/view_helpers.rb)
+  # config.pagination = { :previous_label => "&larr; " + Typus::I18n.t("Previous"),
+  #                       :next_label => Typus::I18n.t("Next") + " &rarr;" }
+
+end

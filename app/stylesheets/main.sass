@@ -1,16 +1,16 @@
-!blueprint_grid_columns = 28
-!blueprint_grid_margin = 10px
-!blueprint_grid_width = 40px
+$blueprint_grid_columns: 28
+$blueprint_grid_margin: 10px
+$blueprint_grid_width: 40px
 
 @import blueprint/reset
-@import compass/utilities.sass
-@import compass/layout.sass
-@import blueprint/screen.sass
+@import compass/utilities
+@import compass/layout
+@import blueprint
 
 +blueprint
 
-!kanban_blue = #1D2029
-!kanban_grey = #aaaaaa
+$kanban_blue: #1D2029
+$kanban_grey: #aaaaaa
 
 // html, body
 //   :height 100%
@@ -22,7 +22,7 @@ body
       :list-style disc inside
       
   #root
-    :background-color = !kanban_grey
+    :background-color $kanban_grey
   .hidden
     display: none
   
@@ -30,7 +30,7 @@ body
     +container
     :width auto
     :padding 10px
-    :background-color = !kanban_grey
+    :background-color $kanban_grey
     :bottom 10px
     :min-height 80%
     :height auto !important
@@ -54,7 +54,7 @@ body
     div
       +column(14)
       +last
-    :background = #1D2029
+    :background #1D2029
     :padding 15px
     input, textarea               
       :width 98%
@@ -100,7 +100,7 @@ body
       :font-size 12px
     
   #topnav_container
-    :background-color = !kanban_blue
+    :background-color $kanban_blue
     :height 50px
     :overflow hidden
     :right 0
@@ -113,9 +113,9 @@ body
       :font-size 24px
       span
         &.static
-          :color = #FFFFFF - #707070
+          :color #FFFFFF - #707070
         &.dynamic
-          :color = #FFFFFF
+          :color #FFFFFF
   
     #topnav    
       ul
@@ -172,7 +172,7 @@ body
             :padding-right px
             :float left
             :font-size 0.8em
-            :color = !kanban_grey
+            :color $kanban_grey
           :font-weight bold
           :padding-right 10px
         .right
@@ -188,13 +188,13 @@ body
           :border 2px solid #ee2200
     
     &.parking
-      :background-color = #FFFFFF - #303030
+      :background-color #FFFFFF - #303030
     &.super
       :height 100%
       +column(12)
       :padding 4px
       // :border solid grey 1px
-      :background-color = #FFFFFF - #505050
+      :background-color #FFFFFF - #505050
       :-webkit-border-radius 6px
       :-webkit-box-shadow 2px 2px 5px rgba(0,0,0,0.5)
       :-moz-box-shadow 2px 2px 5px
@@ -209,7 +209,7 @@ body
     :height 100%
     +column(6)
     :border solid grey 1px
-    :background-color = #FFFFFF - #101010
+    :background-color #FFFFFF - #101010
     :-webkit-border-radius 6px
     :-webkit-box-shadow 5px 5px 5px rgba(0,0,0,0.5)
     :-moz-box-shadow 5px 5px 5px
@@ -225,7 +225,7 @@ body
 
 
 #footer
-  :background-color = !kanban_blue
+  :background-color $kanban_blue
     
-!footer_height= 20px 
-+sticky-footer(!footer_height, "#root", "#root_footer", "#footer")
+$footer_height: 20px 
++sticky-footer($footer_height, "#root", "#root_footer", "#footer")

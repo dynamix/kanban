@@ -3,7 +3,7 @@
 
 .lane{lane_params(lane, last-1 == lane_counter)}
   - if !lane.is_super_lane?
-    = link_to image_tag('add.png'), items_url(@project, lane), :class => 'add-item-link'
+    = link_to image_tag('add.png'), project_lane_items_url(@project, lane), :class => 'add-item-link'
   %h2
     = lane.title
     - if lane.max_items > 0
@@ -11,5 +11,5 @@
   - if lane.is_super_lane?
     = render :partial => 'lanes/lane', :collection => lane.sub_lanes, :locals => { :last => lane.sub_lanes.length }
   - else
-    %ul.dnd{:id => "#{lane.id}", :href => dnd_items_url(@project, lane), :limit => lane.max_items, :name => lane.name, :class => lane.name}
+    %ul.dnd{:id => "#{lane.id}", :href => dnd_project_lane_items_url(@project, lane), :limit => lane.max_items, :name => lane.name, :class => lane.name}
       = render lane.items, :lane => lane

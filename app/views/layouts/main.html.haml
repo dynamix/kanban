@@ -24,20 +24,20 @@
       #topnav_container
         %h1 
           %span.static KanBan 
-          - if logged_in?
+          = if logged_in?
             %span.dynamic= @project.name
         #topnav
-          - if logged_in?
+          = if logged_in?
             %ul.dynamic
-              %li= link_to "Backlog", backlog_url(@project)  
-              %li= link_to "Dashboard", dashboard_url(@project)
-              %li= link_to "Livelog", livelog_url(@project)
-              %li= link_to "Statistiken", statistics_url(@project)
+              %li= link_to "Backlog", project_backlog_url(@project)  
+              %li= link_to "Dashboard", project_dashboard_url(@project)
+              %li= link_to "Livelog", project_livelog_url(@project)
+              %li= link_to "Statistiken", project_statistics_url(@project)
             %ul.static
               %li= link_to "Projects"
               %li= link_to "Logout", user_sessions_url, :method => :delete
       #content
-        = @content_for_layout
+        = yield
       #root_footer
     #footer
     %script
