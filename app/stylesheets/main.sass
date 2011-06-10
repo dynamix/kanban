@@ -42,7 +42,7 @@ body
   // modal stuff
   #simplemodal-overlay
     :background #1D2029
-    :opacity 30%
+    :opacity 0.3
 
   #simplemodal-container
     :color #FFFFFF
@@ -77,10 +77,18 @@ body
         :width 98%
     .estimation
       input   
-        
         :width 50px
       +column(6)
-      +last
+    .size
+      input   
+        :width 50px
+      +column(6)
+
+    .item_type
+    .title
+      input   
+        :width 70%
+      
       
   
   li
@@ -155,25 +163,44 @@ body
       :padding 0px
       li
         :position relative
-        :padding 2px
+        //:padding 2px
         :margin 3px
         :margin-left 10px
         :-webkit-border-radius 4px
-        :background-color #EBE6C7
+        :background-color #f7f7f7
         :-moz-border-radius 4px
-        .owner
-          :font-size 0.75em
-          :color #A1A1A0 
-        .wip
-          :font-size 0.75em
-          :color #A1A1A0 - #101010
-        h3         
+        .item_footer
+          :padding 1px
+          :padding-left 5px
+          :padding-right 5px
+          :margin 0px
+          :background -moz-linear-gradient(top, #f7f7f7, #ddd) /* Firefox */
+          :background -webkit-linear-gradient(top, #f7f7f7, #ddd) /* Safari, Chrome - neue Syntax! */
+          :background -o-linear-gradient(top, #f7f7f7, #ddd) /* Opera */
+          :background -ms-linear-gradient(top, #f7f7f7, #ddd) /* IE */
+          :background linear-gradient(top, #f7f7f7, #ddd) /* W3C Standard */
+          :border-top 1px solid #ccc
           .id          
-            :padding-right px
-            :float left
-            :font-size 0.8em
+            :font-size 0.75em
             :color $kanban_grey
+          .owner
+            :font-size 0.75em
+            :color $kanban_grey 
+          .wip
+            :font-size 0.75em
+            :color #101010
+          .size
+            :font-size 0.75em
+            :color #101010
+            :width 18px
+            :background-color #FFF
+            :border 1px solid #ccc
+            :float right
+            :text-align center
+            :margin-top 3px
+        h3         
           :font-weight bold
+          :padding 0.5em
           :padding-right 10px
         .right
           :position absolute
@@ -181,11 +208,20 @@ body
           :right 2px
         
         &.normal
-          :border 2px solid #DBE1D2
+          :border 1px solid #cccccc
         &.warn
-          :border 2px solid #ffaa00
+          :border 1px solid #cccccc//#ffaa00
         &.urgent
-          :border 2px solid #ee2200
+          :border 1px solid #999//#ee2200
+        &.roadmap
+          :border-top 3px solid #569515
+        &.feature
+          :border-top 3px solid #3c78b5
+        &.support
+          :border-top 3px solid #ffaa00
+        &.bug
+          :border-top 3px solid #e47067
+          
     
     &.parking
       :background-color #FFFFFF - #303030

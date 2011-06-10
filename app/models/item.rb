@@ -3,6 +3,13 @@ class Item < ActiveRecord::Base
   # http://github.com/laserlemon/vestal_versions
   versioned
   
+  TYPES = [
+    :roadmap,
+    :feature,
+    :support,
+    :bug
+  ].freeze
+  
   has_many :statistics, :dependent => :destroy
   
   has_many :history_entries
@@ -14,7 +21,6 @@ class Item < ActiveRecord::Base
 
   before_save :update_time_counters
   after_save :update_statistics
-
 
   WIP_TOTAL_WARN = 3600*24*10 # 10 days
   WIP_TOTAL_URGENT = 3600*24*20 # 20 days

@@ -14,8 +14,10 @@ class ItemsController < ApplicationController
     @item.text = params[:item][:text]
     @item.estimation = params[:item][:estimation]
     @item.last_editor = current_user
+    @item.size = params[:item][:size]
+    @item.item_type = params[:item][:item_type]
     @item.save
-    return render(:partial => 'item_content', :locals => {:item => @item})
+    return render(:partial => 'item', :locals => {:item => @item})
   end
   
   def create

@@ -1,13 +1,14 @@
 = hidden_field :item, :url, :value => edit_project_lane_item_url(@project, item.lane, item)
 %h3{klass(item.todo_state)}
-  .id= "[#{item.id}]"
   = item.title.strip
 .right.delete
   = link_to 'x', project_lane_item_path(@project, item.lane, item)
-
-- if item.owner
-  %span.owner= item.owner.name
-%span.wip= wip_for_item(item)
-.tip.hidden
-  = raw item.text.to_html
-%br
+.item_footer
+  %span.id= "[#{item.id}]"
+  - if item.owner
+    %span.owner= item.owner.name
+  %span.wip= wip_for_item(item)
+  - unless item.size.blank?
+    %span.size=item.size
+  .tip.hidden
+    = raw item.text.to_html

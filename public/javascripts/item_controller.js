@@ -75,7 +75,8 @@ Class("ItemController", {
       var form = $('.edit_item');
       var id = form.attr('id').substr(10);
       jQuery.post(form.attr('action'), form.serialize() + "&_method=put", function(data, textStatus){
-        $('li#' + id).html(data).effect("highlight", {color: '#ffbe89'}, 1000);;
+        $('li#' + id).replaceWith(data)
+        $('li#' + id).effect("highlight", {color: '#ffbe89'}, 1000);;
       });
       $('a.modalCloseImg').click();
       return false;
