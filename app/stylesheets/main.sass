@@ -6,6 +6,7 @@ $blueprint_grid_width: 40px
 @import compass/utilities
 @import compass/layout
 @import blueprint
+@import jquery.ui.sass
 
 +blueprint
 
@@ -20,10 +21,9 @@ body
   .qtip   
     ul
       :list-style disc inside
-      
   #root
     :background-color $kanban_grey
-  .hidden
+  .hidden 
     display: none
   
   #content
@@ -40,54 +40,45 @@ body
       margin-bottom: 15px
 
   // modal stuff
-  #simplemodal-overlay
-    :background #1D2029
-    :opacity 0.3
-
-  #simplemodal-container
-    :color #FFFFFF
-    :-webkit-border-radius 4px
-    :-webkit-box-shadow 5px 5px 5px rgba(0,0,0,0.5)
-    :-moz-box-shadow 5px 5px 5px
-    :-moz-border-radius 4px
+  #item-modal-box
     +column(14)
-    div
-      +column(14)
-      +last
-    :background #1D2029
-    :padding 15px
-    input, textarea               
-      :width 98%
-    a.modalCloseImg 
-      :background url(/images/x.png) no-repeat
-      :width 25px
-      :height 29px
-      :display inline
-      :z-index 3200
-      :position absolute
-      :top -15px
-      :right -18px
-      :cursor pointer
+    #tabs
+      +column(13)
     .save
       input
         :width 100px
+    .item_type
+      +column(3)
+      select
+        +column(2)
+    .title
+      +column(9)
+      input
+        +column(8)
+    .description
+      #item_preview
+        :overflow-y auto
+        :overflow-x hidden
+        +column(12)
+        :height 300px
+      textarea
+        :overflow-y auto
+        :overflow-x hidden
+        +column(12)
+        :height 300px
     .owner
       +column(4)
       select
         :width 98%
     .estimation
+      +column(2)
       input   
         :width 50px
-      +column(6)
     .size
+      +column(2)
       input   
         :width 50px
-      +column(6)
 
-    .item_type
-    .title
-      input   
-        :width 70%
       
       
   

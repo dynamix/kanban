@@ -17,29 +17,32 @@ Class("ItemController", {
       this.enable_drag_n_drop();
       // apply tooltips
       $('.item').each(function(idx,e) {
-        $(e).qtip({
-          delay: 300,
-          position: {
-            corner: {
-              target: 'bottomLeft',
-              tooltip: 'topLeft'
-            },  
-            adjust: {
-              screen: true
-            }
-          },
-          content:$('.tip',e).html()  ,
-          
-          style: {
-            width: 500
-          }
-        });
+        self.add_qtip_to(e)
       });
-      
     }
   },
   
   methods: {
+    add_qtip_to: function(selector) {
+      $(selector).qtip({
+        delay: 300,
+        position: {
+          corner: {
+            target: 'bottomLeft',
+            tooltip: 'topLeft'
+          },  
+          adjust: {
+            screen: true
+          }
+        },
+        content:$('.tip',selector).html()  ,
+        
+        style: {
+          width: 500
+        }
+      });
+    },
+    
     fit_to_screen : function() {
       var lanes = $('.lane:not(.super)');
       var width = ($('#content').width() - 10 )/ lanes.length;
@@ -47,8 +50,7 @@ Class("ItemController", {
       if(lanes.length == 2)
         width = width - 20;
       
-      
-      // substract padding, marigin and border
+      // substract padding, margin and border
       var first_lane = $(lanes.get(0));
       var delta = first_lane.outerWidth(true) - first_lane.width();
       lanes.width(Math.floor(width) - delta);
@@ -75,24 +77,28 @@ Class("ItemController", {
       var form = $('.edit_item');
       var id = form.attr('id').substr(10);
       jQuery.post(form.attr('action'), form.serialize() + "&_method=put", function(data, textStatus){
-        $('li#' + id).replaceWith(data)
-        $('li#' + id).effect("highlight", {color: '#ffbe89'}, 1000);;
+        $('li#' + id).replaceWith(data);
+        $('li#' + id).effect("highlight", {color: '#ffbe89'}, 1000);
+        self.add_qtip_to($('li#' + id));
       });
-      $('a.modalCloseImg').click();
+      $('a.ui-dialog-titlebar-close').click();
       return false;
     },
     
     show_create_item_dialog : function(j) {
       var limit = j.parents('div.lane').attr('limit');
-      if( limit > 0 && j.parents('div.lane').find('li').length >= limit )
+      if( limit > 0 && j.parents('div.lane').find('li.item').length >= limit )
       {
         alert('Lane has reach the maximum number of items!');
         return false;
       }
-      var form = $('#create-item-modal-box form');
+
+      this.load_edit_overlay(j.attr('href') + "/new");
+
+      var form = $('#item-modal-box form');
       form.attr('target',j.parents('div.lane').attr('name'));
       form.attr('action', j.attr('href'));
-      $('#create-item-modal-box').modal();
+      
       return false;
     },
     
@@ -103,7 +109,7 @@ Class("ItemController", {
         var backlog = $('.dnd[name=' + form.attr('target') + ']');
         backlog.prepend(data);
       });
-      $.modal.close();
+      $('a.ui-dialog-titlebar-close').click();
       return false;
     },
     
@@ -111,15 +117,37 @@ Class("ItemController", {
       var self = this;
       if(self.is_click == null)
         self.is_click = true;
-      if(self.is_click)
+      if(self.is_click) {
         self.load_edit_overlay($('#item_url', j).attr('value'));
+      }
       else
         self.is_click = true; // was drag'n'drop, enable click again
     },
     
-    load_edit_overlay : function(url){
-      $('#item-edit-overlay').load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-        $('#item-edit-overlay').modal();
+    load_edit_overlay : function(url) {
+      var e = $('#item-modal-box');
+      var self = this
+      e.load(url, '', function (responseText, textStatus, XMLHttpRequest) {
+        e.dialog({
+          modal: true,
+          draggable: false,
+          title: "Edit item",
+          width: 690,
+          resizable: false
+        });
+        $('#tabs', e).tabs();
+        // show preview as default on edit
+        if( $('#item_text').val().length > 0) 
+        {
+          $('#item_preview', e).show();
+          $('#item_textarea', e).hide();
+          // register db click for preview
+          $('#item_preview', e).dblclick(function() {
+            $('#item_preview', e).hide();
+            $('#item_textarea', e).show();
+          })
+        } else
+          $('#item_preview', e).hide();
       });
     },
     
@@ -146,7 +174,7 @@ Class("ItemController", {
             var column = $(event.target).parent('div.lane');
             var limit = self.get_limit(column);
             var same_lane = event.target == ui.sender.get(0);
-            var item_count = $('li',column).length;
+            var item_count = $('li.item',column).length;
             if( column.parent('.super').length > 0 ) 
             {
               item_count = $('li.item',column.parent('.super')).length;

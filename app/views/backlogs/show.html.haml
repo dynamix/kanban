@@ -3,6 +3,4 @@
 = render :partial => 'lanes/lane', :object => @backlog
 = render :partial => 'lanes/lane', :object => @selected_lane, :locals => {:slide => 'slide'}
 
-#create-item-modal-box.hidden= render 'items/item_overlay', :url => ""
-
-#item-edit-overlay.hidden
+#item-modal-box.hidden= render 'items/item_overlay'

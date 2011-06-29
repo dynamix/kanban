@@ -13,6 +13,7 @@ class Item < ActiveRecord::Base
   has_many :statistics, :dependent => :destroy
   
   has_many :history_entries
+  has_many :comments
   belongs_to :lane
   belongs_to :owner, :class_name => 'User'
   belongs_to :last_editor, :class_name => 'User'

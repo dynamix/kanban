@@ -13,6 +13,7 @@ Kanban::Application.routes.draw do
         end
 
         resources :versions
+        resources :comments
       end
     end
   end

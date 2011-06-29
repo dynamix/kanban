@@ -1,41 +1,58 @@
 - method ||= :post
 - item = @item || Item.new
+- url ||= ''
 = form_for item, :url => url, :method => method do |f|
-  .title
-    = f.label :title 
-    = f.text_field :title
-  .item_type
-    = f.label :item_type
-    = f.select :item_type, Item::TYPES
-    .clear
-  %div
-    %label Text
-    %br
-    = f.text_area :text
-  %div.owner
-    %label Owner
-    %br
-    = f.select :owner_id, User.all.collect{|u| [u.name, u.id]}
-  %div.estimation
-    %label Estimation
-    %br
-    = f.text_field :estimation
-  %div.size
-    %label Size
-    %br
-    = f.text_field :size
+  #tabs
+    %ul
+      %li
+        %a{:href => "#tab-details"}
+          %span Details
+      - if item and item.version and item.version > 1
+        %li
+          %a{:href => project_lane_item_comments_path(@project,@lane,item), :title => "tab-comments"}
+            %span Comments
+    #tab-details
+      .title
+        = f.label :title 
+        = f.text_field :title
+      .item_type
+        = f.label :item_type
+        = f.select :item_type, Item::TYPES
+      .clear
+      .description
+        = f.label :text
+        #item_textarea= f.text_area :text
+        #item_preview= raw item.text.to_html if item.text
+      .clear
+      %div.owner
+        %label Owner
+        %br
+        = f.select :owner_id, User.all.collect{|u| [u.name, u.id]}
+      %div.estimation
+        %label Estimation
+        %br
+        = f.text_field :estimation
+      %div.size
+        %label Size
+        %br
+        = f.text_field :size
+      %p
+        %label Last change by
+        %br
+        - if item.last_editor
+          = item.last_editor.to_s
+          - if item and (item.created_at or item.updated_at)
+            ,
+            = distance_of_time_in_words_to_now(item.updated_at || item.created_at)
+            ago.
+          -#= link_to "show history", project_lane_item_versions_path(@project,@lane,item), :target => "_blank"  if item and item.version and item.version > 1
+        - else
+          NEVER EDITED!
+    - if item and item.version and item.version > 1
+      #tab-comments
+
+  #comments
+    = render "comments/comment_new", :f => f
+    
   %div.save
     = submit_tag 'Save', :id => "item-form-submit-#{method}"
-
-  %p
-    %label Last change by
-    %br
-    - if item.last_editor
-      = item.last_editor.to_s
-      - if item and (item.created_at or item.updated_at)
-        ,
-        = distance_of_time_in_words_to_now(item.updated_at || item.created_at)
-        ago.
-      = link_to "show history", project_lane_item_versions_path(@project,@lane,item), :target => "_blank"  if item and item.version and item.version > 1
-    - else
-      NEVER EDITED!

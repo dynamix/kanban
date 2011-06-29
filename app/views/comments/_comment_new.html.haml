@@ -1,0 +1,3 @@
+- f.fields_for :comments do |f_comments|
+  = f_comments.text_field :text
+  = submit_tag 'add comment', :id => "new-comment"
