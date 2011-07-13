@@ -148,6 +148,28 @@ Class("ItemController", {
           })
         } else
           $('#item_preview', e).hide();
+        // buttons
+        $( "input:submit, div[role='button']").button();
+        // add callbacks for comment block
+        $('#new_comment_info').click(function() {
+          self.toggle_comment(true);
+        })
+        comment_btn = $('#new_comment_input > #add_comment')
+        comment_btn.click(function() {
+          $.ajax({
+            url: comment_btn.data().action,
+            type: "POST",
+            data: $('#new_comment_input > #comment_text').serialize(),
+            statusCode: {
+              200: function() {
+                self.toggle_comment(false);
+              }
+            }
+          });
+        })
+        $('#new_comment_input > #cancel_comment').click(function() {
+          self.toggle_comment(false);
+        })
       });
     },
     
@@ -161,6 +183,13 @@ Class("ItemController", {
           limit = parseInt($('ul',column).attr('limit'));
         }
         return limit;
+    },
+
+    toggle_comment: function(showOrHide) {
+      $('#new_comment_info').toggle(!showOrHide)
+      e = $('#new_comment_input');
+      if(showOrHide) $('textarea' ,e).val("");
+      e.toggle(showOrHide)
     },
 
     enable_drag_n_drop : function(){

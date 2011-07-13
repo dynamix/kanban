@@ -20,8 +20,9 @@
         = f.select :item_type, Item::TYPES
       .clear
       .description
-        = f.label :text
-        #item_textarea= f.text_area :text
+        #item_textarea
+          = f.label :text
+          = f.text_area :text
         #item_preview= raw item.text.to_html if item.text
       .clear
       %div.owner
@@ -51,8 +52,10 @@
     - if item and item.version and item.version > 1
       #tab-comments
 
-  #comments
-    = render "comments/comment_new", :f => f
+  - if !item.new_record?
+    .ui-helper-clearfix
+    #comments
+      = render "comments/comment_new", :f => f, :for_item => item
     
   %div.save
     = submit_tag 'Save', :id => "item-form-submit-#{method}"

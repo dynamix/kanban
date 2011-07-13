@@ -1,0 +1,6 @@
+.comment_date
+  = comment.user
+  - if comment and (comment.created_at or comment.updated_at)
+    <br/>
+    = "#{distance_of_time_in_words_to_now(comment.updated_at || comment.created_at)} ago"
+.comment_text=raw comment.text.to_html if comment.text

@@ -1,3 +1,6 @@
-- f.fields_for :comments do |f_comments|
-  = f_comments.text_field :text
-  = submit_tag 'add comment', :id => "new-comment"
+#comment_box.ui-widget-content.ui-corner-all
+  #new_comment_info="add comment..."
+  #new_comment_input.ui-helper-hidden
+    = text_area :comment, "text"
+    #add_comment{:role => :button, :"data-action" => project_lane_item_comments_path(for_item.lane.project, for_item.lane, for_item)}="Kommentieren"
+    #cancel_comment{:role => :button}="Abbrechen"

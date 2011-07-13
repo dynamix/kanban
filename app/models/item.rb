@@ -13,13 +13,17 @@ class Item < ActiveRecord::Base
   has_many :statistics, :dependent => :destroy
   
   has_many :history_entries
-  has_many :comments
+  has_many :comments, :dependent => :destroy
   belongs_to :lane
   belongs_to :owner, :class_name => 'User'
   belongs_to :last_editor, :class_name => 'User'
 
   acts_as_list :scope => :lane
 
+  attr_accessible :owner_id, :title, :text, :estimation, :size, :item_type
+  
+  accepts_nested_attributes_for :comments
+  
   before_save :update_time_counters
   after_save :update_statistics
 

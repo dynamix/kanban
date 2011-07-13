@@ -6,7 +6,7 @@ $blueprint_grid_width: 40px
 @import compass/utilities
 @import compass/layout
 @import blueprint
-@import jquery.ui.sass
+@import jquery-ui.custom.sass
 
 +blueprint
 
@@ -61,6 +61,12 @@ body
         :overflow-x hidden
         +column(12)
         :height 300px
+        :margin-top .5em
+        :margin-bottom .5em
+        :padding-top .5em
+        :padding-bottom .5em
+        :border-top 1px dotted #aaa
+        :border-bottom 1px dotted #aaa
       textarea
         :overflow-y auto
         :overflow-x hidden
@@ -78,9 +84,26 @@ body
       +column(2)
       input   
         :width 50px
-
-      
-      
+    #comment_box
+      :margin-top 1em
+      :margin-bottom 1em
+      :padding .5em
+      textarea
+        +column(12)
+        :height 50px
+    #comment_list
+      ol
+        :padding-left 0
+        :padding-right 0
+      li
+        :border 1px solid #aaa
+        :display block
+        :clear both
+        
+        div
+          :float left
+          :margin .3em
+          :padding .5em
   
   li
     :list-style none
